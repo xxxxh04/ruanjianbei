@@ -66,8 +66,9 @@ const questions = {
   outText: "1",
 }
 
-function navigateTo(path) {
-  const router = useRouter()
+const router = useRouter()
+
+function navigateTo(path: string) {
   router.push(path)
 }
 
