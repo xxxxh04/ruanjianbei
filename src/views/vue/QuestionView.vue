@@ -55,29 +55,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      questions: {
-        describe: "rtfgyhftyguh",
-        inputDescribe: "dtrfyghuzzzzzzzzz",
-        outputDescribe: "zzzzzzzzzzzzz",
-        inText: "1 1 1",
-        outText: "1",
-      },
-    };
-  },
-  methods: {
-    navigateTo(path) {
-      this.$router.push(path);
-    },
-  },
-  props: ["number", "name"], // 接收路由参数
-};
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const questions = {
+  describe: "rtfgyhftyguh",
+  inputDescribe: "dtrfyghuzzzzzzzzz",
+  outputDescribe: "zzzzzzzzzzzzz",
+  inText: "1 1 1",
+  outText: "1",
+}
+
+function navigateTo(path) {
+  const router = useRouter()
+  router.push(path)
+}
+
+const props = defineProps({
+  number: Number,
+  name: String
+})
 </script>
+
 
 <style scoped>
 @import "../CSS/QuestiobView.css";
 @import "../CSS/TitleAndNavigationBar.css";
-</style>   
+</style>

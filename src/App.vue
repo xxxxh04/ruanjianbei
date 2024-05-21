@@ -1,20 +1,11 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    
-
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 
-
-export default {
-  name: 'app',
-  components: {
-
-  }
-}
 </script>
 
 <style>

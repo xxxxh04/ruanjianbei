@@ -11,16 +11,16 @@
   </div>
 </template>
   
-<script>
-export default {
-  name: "HomeComponent",
-  data() {
-    return {
-      user: [],
-    };
-  },
-  mounted() {},
-};
+<script setup lang="ts">
+import { reactive } from "vue"
+
+const user = reactive({
+  name: "test",
+  account: 123456,
+  signature: "这是个啥",
+  url: "testurl"
+})
+
 </script>
 
 <style scoped>

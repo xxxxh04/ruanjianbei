@@ -18,8 +18,7 @@
         </div>
         <div id="passNameAndTime">
           <p>
-            <span id="passName">{{ passData.name }}</span
-            >提交于<span id="passTime">{{ passData.time }}</span>
+            <span id="passName">{{ passData.name }}</span>提交于<span id="passTime">{{ passData.time }}</span>
           </p>
         </div>
         <div id="passInformationWrapper" class="flex-container">
@@ -61,26 +60,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      passData: {
-        name: "name",
-        time: "11:11:11",
-        passTime:15,
-        passLanguage:"C++",
-        passMemory:100,
-        passCode:"aaaa",
-        feedback:"bbbb"
-      },
-    };
-  },
-  methods: {},
-};
+<script setup lang="ts">
+
+const passData = {
+  name: "name",
+  time: "11:11:11",
+  passTime: 15,
+  passLanguage: "C++",
+  passMemory: 100,
+  passCode: "aaaa",
+  feedback: "bbbb"
+}
+
 </script>
 
 <style scoped>
 @import "../CSS/TitleAndNavigationBar.css";
 @import "../CSS/SuccessView.css";
-</style>   
+</style>
