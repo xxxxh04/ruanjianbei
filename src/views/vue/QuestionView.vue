@@ -46,17 +46,42 @@
           </div>
         </div>
       </div>
-      <div class="right-half">
-        <!-- 右半部分内容 -->
-        <h2>右半部分</h2>
-        <button @click="navigateTo('/success')">测试跳转</button>
+      <div class="right-half" id="right-half">
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import * as monaco from 'monaco-editor';
+import { onMounted, ref } from 'vue';
+
 import { useRouter } from 'vue-router'
+
+const value = `#include <iostream>
+using namespace std;
+
+int main() {
+  cout << "Monaco editor";
+  return 0;
+}`;
+
+const editorValue = ref('')
+
+let edit: monaco.editor.IStandaloneCodeEditor
+
+function getEditorValue() {
+  editorValue.value = edit.getValue()
+  console.log(editorValue.value)
+}
+
+onMounted(() => {
+  edit = monaco.editor.create(document.getElementById("right-half"), {
+    value,
+    language: "cpp",
+    automaticLayout: true
+  })
+})
 
 const questions = {
   describe: "rtfgyhftyguh",
