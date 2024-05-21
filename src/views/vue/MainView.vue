@@ -12,32 +12,30 @@
     </header>
     <div class="container">
       <div class="left-section">
-        <el-menu
-          :default-active="activeIndex"
-          class="el-menu-vertical-demo"
-          @select="handleSelect"
-        >
+        <el-menu class="el-menu-vertical-demo">
           <el-menu-item index="1" @click="navigateTo('/')">
-            <i class="el-icon-user-solid"></i>
-            <span slot="title">主页</span>
+            <el-icon>
+              <UserFilled />
+            </el-icon>
+            <span>主页</span>
           </el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-document"></i>
+          <el-sub-menu index="2">
+            <template #title>
+              <el-icon>
+                <Document />
+              </el-icon>
               <span>功能</span>
             </template>
-            <el-menu-item index="2-1" @click="navigateTo('/ceshi')"
-              >1.智能评测系统</el-menu-item
-            >
+            <el-menu-item index="2-1" @click="navigateTo('/ceshi')">1.智能评测系统</el-menu-item>
             <el-menu-item index="2-2">2.</el-menu-item>
-          </el-submenu>
+          </el-sub-menu>
           <el-menu-item index="3">
-            <i class="el-icon-location"></i>
-            <span slot="title">关于</span>
+            <el-icon><Location /></el-icon>
+            <span>关于</span>
           </el-menu-item>
           <el-menu-item index="4">
-            <i class="el-icon-phone"></i>
-            <span slot="title">联系</span>
+            <el-icon><Phone /></el-icon>
+            <span>联系</span>
           </el-menu-item>
         </el-menu>
       </div>
@@ -51,23 +49,23 @@
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    navigateTo(path) {
-      if (this.$route.path !== path) {
-        this.$router.push(path).catch((err) => {
-          if (err.name !== "NavigationDuplicated") {
-            console.error(err);
-          }
-        });
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+function navigateTo(path: string) {
+  const router = useRouter();
+  if (router.currentRoute.value.path !== path) {
+    router.push(path).catch((err: Error) => {
+      if (err.name !== "NavigationDuplicated") {
+        console.error(err);
       }
-    },
-  },
+    });
+  }
 };
 </script>
+
 
 <style scoped>
 @import "../CSS/MainView.css";
 @import "../CSS/TitleAndNavigationBar.css";
-</style>   
+</style>

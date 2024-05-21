@@ -10,19 +10,20 @@
     </div>
   </div>
 </template>
+  
+<script setup lang="ts">
+import { reactive } from "vue"
 
-<script>
-export default {
-  name: "HomeComponent",
-  data() {
-    return {
-      user: {},
-    };
-  },
-  mounted() {},
-};
+const user = reactive({
+  name: "test",
+  account: 123456,
+  signature: "这是个啥",
+  url: "testurl"
+})
+
 </script>
 
 <style scoped>
-@import "./css/HomeComponent.css";
 </style>
+
+</style>  
