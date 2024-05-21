@@ -84,12 +84,13 @@
         <el-table-column prop="number" label="题号" width="100">
         </el-table-column>
         <el-table-column prop="name" label="题目名称" width="800">
-          <!-- <template slot-scope="{ row }">
+          <template v-slot="scope">
             <router-link :to="{
             name: 'question',
-            params: { number: row.number, name: row.name },
-          }" target="_blank">{{ row.name }}</router-link>
-          </template> -->
+            params: { number: scope.row.number, name: scope.row.name },
+            }"
+            target="_blank">{{ scope.row.name }}</router-link>
+          </template>
         </el-table-column>
         <el-table-column prop="laber" label="标签" width="200">
         </el-table-column>

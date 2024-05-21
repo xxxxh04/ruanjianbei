@@ -52,16 +52,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
+const router = useRouter()
+
 function navigateTo(path: string) {
-  const router = useRouter();
-  if (router.currentRoute.value.path !== path) {
-    router.push(path).catch((err: Error) => {
-      if (err.name !== "NavigationDuplicated") {
-        console.error(err);
-      }
-    });
-  }
-};
+  router.push(path)
+}
 </script>
 
 
