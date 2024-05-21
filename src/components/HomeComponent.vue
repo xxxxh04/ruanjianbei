@@ -10,13 +10,13 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 export default {
   name: "HomeComponent",
   data() {
     return {
-      user: [],
+      user: {},
     };
   },
   mounted() {},
@@ -25,4 +25,4 @@ export default {
 
 <style scoped>
 @import "./css/HomeComponent.css";
-</style>  
+</style>

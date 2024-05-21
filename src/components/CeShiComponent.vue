@@ -22,7 +22,7 @@
             >标签</el-button
           >
           <el-dialog
-            title="多选按钮弹框"
+            title="算法标签"
             :visible.sync="dialogVisible"
             width="30%"
             @close="handleClose"
@@ -117,8 +117,8 @@
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
   name: "CeShiComponent",
   data() {
@@ -126,9 +126,9 @@ export default {
       selectDiffculty: "", // 用于存储选中的难度
       selectedDiffculty: false, //是否选择难度
       diffcultyOptions: [
-        { value: "option1", label: "简单" },
-        { value: "option2", label: "中等" },
-        { value: "option3", label: "困难" },
+        { value: "简单", label: "简单" },
+        { value: "中等", label: "中等" },
+        { value: "困难", label: "困难" },
       ],
       dialogVisible: false,
       checkedLabers: [], // 存储选中的标签
@@ -192,7 +192,7 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 @import "./css/CeShiComponent.css";
-</style>  
+</style>
