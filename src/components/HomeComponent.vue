@@ -10,20 +10,16 @@
     </div>
   </div>
 </template>
-  
+
 <script setup lang="ts">
-import { reactive } from "vue"
+import { reactive } from "vue";
 
 const user = reactive({
   name: "test",
   account: 123456,
   signature: "这是个啥",
-  url: "testurl"
-})
-
+  url: "testurl",
+});
 </script>
 
-<style scoped>
-</style>
-
-</style>  
+<style scoped></style>
