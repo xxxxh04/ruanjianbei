@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
-import MainView from '../views/vue/MainView.vue';
+import MainView from '../views/MainView.vue';
 import HomeComponenet from '../components/HomeComponent.vue';
 import CeShiComponent from '../components/CeShiComponent.vue';
-import QuestionView from '../views/vue/QuestionView.vue';
+import QuestionView from '../views/QuestionView.vue';
 
-import SuccessView from '../views/vue/SuccessView.vue';
+import SuccessView from '../views/SuccessView.vue';
 
 
 const router = createRouter({
