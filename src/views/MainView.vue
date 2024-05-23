@@ -61,7 +61,7 @@ function navigateTo(path: string) {
 
 
 <style scoped>
-@import "../CSS/TitleAndNavigationBar.css";
+@import "../assets/TitleAndNavigationBar.css";
 
 .container {
     display: flex;

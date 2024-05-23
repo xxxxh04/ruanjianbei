@@ -75,7 +75,7 @@ const passData = {
 </script>
 
 <style scoped>
-@import "../CSS/TitleAndNavigationBar.css";
+@import "../assets/TitleAndNavigationBar.css";
 
 .split-screen {
     display: flex;
