@@ -61,6 +61,30 @@ function navigateTo(path: string) {
 
 
 <style scoped>
-@import "../CSS/MainView.css";
 @import "../CSS/TitleAndNavigationBar.css";
+
+.container {
+    display: flex;
+    padding-top: 20px;
+    height: 800px;
+}
+
+.left-section {
+    flex: 0 0 20%;
+
+}
+
+.right-section {
+    flex: 1;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
 </style>
