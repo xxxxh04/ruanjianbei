@@ -57,11 +57,21 @@
             <el-input
               v-model="searchInput"
               placeholder="请输入搜索内容"
-              @input="search"
               clearable
             />
+            <!-- @input="searchProblem" -->
           </div>
         </div>
+        <el-button
+          type="primary"
+          style="margin-left: 20px"
+          @click="searchProblem()"
+        >
+          <el-icon style="vertical-align: middle">
+            <Search />
+          </el-icon>
+          <span style="vertical-align: middle"> 搜索 </span>
+        </el-button>
       </div>
       <div id="showSelect">
         <span>已选择</span>
@@ -81,22 +91,24 @@
       <el-table :data="questionData" style="width: 100%">
         <el-table-column prop="state" label="状态" width="50">
         </el-table-column>
-        <el-table-column prop="number" label="题号" width="100">
-        </el-table-column>
-        <el-table-column prop="name" label="题目名称" width="800">
+        <el-table-column prop="pid" label="题号" width="100"> </el-table-column>
+        <el-table-column prop="pname" label="题目名称" width="800">
           <template v-slot="scope">
-            <router-link :to="{
-            name: 'question',
-            params: { number: scope.row.number, name: scope.row.name },
-            }"
-            target="_blank">{{ scope.row.name }}</router-link>
+            <router-link
+              :to="{
+                name: 'question',
+                params: { number: scope.row.pid, name: scope.row.pname },
+              }"
+              target="_blank"
+              >{{ scope.row.pname }}</router-link
+            >
           </template>
         </el-table-column>
-        <el-table-column prop="laber" label="标签" width="200">
+        <el-table-column prop="lnames" label="标签" width="200">
         </el-table-column>
         <el-table-column prop="difficulty" label="难度" width="100">
         </el-table-column>
-        <el-table-column prop="passNumber" label="通过数" width="100">
+        <el-table-column prop="acNum" label="通过数" width="100">
         </el-table-column>
       </el-table>
     </div>
@@ -104,44 +116,50 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref } from "vue";
-
+import { reactive, computed, ref, onMounted } from "vue";
+import axios from "axios";
 const selectDiffculty = ref(""); // 用于存储选中的难度
 const selectedDiffculty = ref(false); //是否选择难度
 const diffcultyOptions = reactive([
-  { value: "option1", label: "简单" },
-  { value: "option2", label: "中等" },
-  { value: "option3", label: "困难" },
+  { value: "简单", label: "简单" },
+  { value: "中等", label: "中等" },
+  { value: "困难", label: "困难" },
 ]);
 const dialogVisible = ref(false);
 const checkedLabers = reactive([]); // 存储选中的标签
 const searchInput = ref(""); // 用于存储搜索框中的内容
-const questionData = reactive([
+let questionData = reactive([
   {
     state: 1,
-    number: 1,
-    name: "abc",
-    laber: [1, 2, 3, "sss"],
+    pid: 1,
+    pname: "abc",
     difficulty: "简单",
-    passNumber: "1",
+    acnum: "1",
+    content: null,
+    labels: ["二分", "模拟"],
+    lnames: [],
+    inDetail: null,
+    outDetail: null,
+    inTest: null,
+    OutTest: null,
   },
 ]);
 
 const laberOptions1 = computed(() => {
   return [
-    { value: "laber1-1", label: "数组" },
-    { value: "laber1-2", label: "字符串" },
-    { value: "laber1-3", label: "排序" },
-    { value: "laber1-4", label: "矩阵" },
+    { value: "1", label: "模拟" },
+    { value: "2", label: "数学" },
+    { value: "7", label: "数组" },
+    { value: "10", label: "矩阵" },
   ];
 });
 
 const laberOptions2 = computed(() => {
   return [
-    { value: "laber2-1", label: "动态规划" },
-    { value: "laber2-2", label: "贪心" },
-    { value: "laber2-3", label: "dfs" },
-    { value: "laber2-4", label: "二分" },
+    { value: "5", label: "动态规划" },
+    { value: "11", label: "贪心" },
+    { value: "4", label: "DFS" },
+    { value: "6", label: "二分" },
   ];
 });
 
@@ -167,10 +185,42 @@ function handleConfirm() {
   dialogVisible.value = false;
 }
 
-function search() {
+function searchProblem() {
   // 执行搜索操作，这里可以根据搜索框中的内容执行相应的搜索逻辑
-  console.log("执行搜索操作:", searchInput);
+  console.log(
+    "执行搜索操作:",
+    searchInput.value,
+    selectDiffculty.value,
+    checkedLabers
+  );
+  const params = {
+    dif: selectDiffculty.value,
+    labels: checkedLabers,
+    content: searchInput.value,
+  };
+  axios.post("http://localhost:8080/problem/search", params).then((result) => {
+    console.log("返回结果：" + result.data.data);
+    Object.assign(questionData, result.data.data);
+    questionData.forEach((question) => {
+      // 初始化 lnames 数组
+      question.lnames = question.labels.map((label) => label.lname);
+    });
+    console.log(questionData);
+  });
 }
+
+//加载所有题目
+onMounted(() => {
+  axios.get("http://localhost:8080/problem/findall").then((result) => {
+    Object.assign(questionData, result.data.data);
+    questionData.forEach((question) => {
+      // 初始化 lnames 数组
+      question.lnames = question.labels.map((label) => label.lname);
+    });
+    console.log(result.data.data);
+    console.log(questionData);
+  });
+});
 </script>
 
 <style scoped>
