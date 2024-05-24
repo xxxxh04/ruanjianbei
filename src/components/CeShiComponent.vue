@@ -141,7 +141,7 @@ let questionData = reactive([
     inDetail: null,
     outDetail: null,
     inTest: null,
-    OutTest: null,
+    outTest: null,
   },
 ]);
 

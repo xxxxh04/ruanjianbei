@@ -25,40 +25,39 @@
         <div id="questionDescribe">
           <h3>题目描述</h3>
           <div id="questionDescribeShow">
-            <p>{{ questions.describe }}</p>
+            <p>{{ questions.content }}</p>
           </div>
           <h4>输入描述</h4>
           <div id="questionInputDescribeShow">
-            <p>{{ questions.inputDescribe }}</p>
+            <p>{{ questions.inDetail }}</p>
           </div>
           <h4>输出描述</h4>
           <div id="questionOutDescribeShow">
-            <p>{{ questions.outputDescribe }}</p>
+            <p>{{ questions.outDetail }}</p>
           </div>
           <h4>样例</h4>
           <h5>样例输入</h5>
           <div id="questionInputTextShow">
-            <p>{{ questions.inText }}</p>
+            <p>{{ questions.inTest }}</p>
           </div>
           <h5>样例输出</h5>
           <div id="questionOutTextShow">
-            <p>{{ questions.outText }}</p>
+            <p>{{ questions.outTest }}</p>
           </div>
         </div>
       </div>
-      <div class="right-half" id="right-half">
-      </div>
+      <div class="right-half" id="right-half"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import * as monaco from 'monaco-editor';
-import { onMounted, ref } from 'vue';
+import * as monaco from "monaco-editor";
+import { onMounted, ref, reactive, defineProps } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
-import { useRouter } from 'vue-router'
-
-import '../hooks/useMonacoWorker'
+import "../hooks/useMonacoWorker";
 
 const value = `#include <iostream>
 using namespace std;
@@ -67,63 +66,81 @@ int main() {
   cout << "Monaco editor";
   return 0;
 }`;
+const props = defineProps({
+  number: Number,
+  name: String,
+});
+const editorValue = ref("");
 
-const editorValue = ref('')
-
-let edit: monaco.editor.IStandaloneCodeEditor
+let edit: monaco.editor.IStandaloneCodeEditor;
 
 function getEditorValue() {
-  editorValue.value = edit.getValue()
-  console.log(editorValue.value)
+  editorValue.value = edit.getValue();
+  console.log(editorValue.value);
 }
 
+// const questions = {
+//   describe: "rtfgyhftyguh",
+//   inputDescribe: "dtrfyghuzzzzzzzzz",
+//   outputDescribe: "zzzzzzzzzzzzz",
+//   inText: "1 1 1",
+//   outText: "1",
+// };
+
+const router = useRouter();
+
+function navigateTo(path: string) {
+  router.push(path);
+}
+
+let questions = ref({
+  state: 1,
+  pid: 1,
+  pname: "abc",
+  difficulty: "简单",
+  acnum: "1",
+  content: null,
+  labels: ["二分", "模拟"],
+  lnames: [],
+  inDetail: null,
+  outDetail: null,
+  inTest: null,
+  OutTest: null,
+});
 onMounted(() => {
   edit = monaco.editor.create(document.getElementById("right-half"), {
     value,
     language: "cpp",
-    automaticLayout: true
-  })
-})
-
-const questions = {
-  describe: "rtfgyhftyguh",
-  inputDescribe: "dtrfyghuzzzzzzzzz",
-  outputDescribe: "zzzzzzzzzzzzz",
-  inText: "1 1 1",
-  outText: "1",
-}
-
-const router = useRouter()
-
-function navigateTo(path: string) {
-  router.push(path)
-}
-
-const props = defineProps({
-  number: Number,
-  name: String
-})
+    automaticLayout: true,
+  });
+  const id = router.currentRoute.value.params.number;
+  axios.get("http://localhost:8080/problem/findByid/" + id).then((result) => {
+    questions.value = result.data.data;
+    // 初始化 lnames 数组
+    // questions.value.lnames = questions.value.labels.map((label) => label.lname);
+    console.log("查询结果：", questions.value);
+  });
+});
 </script>
-
 
 <style scoped>
 @import "../assets/TitleAndNavigationBar.css";
 
 .split-screen {
-    display: flex;
-    height: calc(100vh - 100px);
-    /* 100vh 减去 header 高度 */
-    overflow: auto;
-    /* 使内容溢出时可以滚动 */
+  display: flex;
+  height: calc(100vh - 100px);
+  /* 100vh 减去 header 高度 */
+  overflow: auto;
+  /* 使内容溢出时可以滚动 */
 }
 
 /* 左半部分样式 */
 .left-half {
-    flex: 1;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    /* 使左半部分内容过多时可以滚动 */
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  /* 使左半部分内容过多时可以滚动 */
 }
 
 /* 右半部分样式 */
@@ -136,31 +153,30 @@ const props = defineProps({
 }
 
 #title {
-    padding-top: 0;
-    margin-bottom: 20px;
-    text-align: left;
-    /* 确保文本左对齐 */
+  padding-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
+  /* 确保文本左对齐 */
 }
 
 #questionAsk {
-    background-color: #ccc;
-    text-align: left;
-    /* 确保文本左对齐 */
-    margin-top: 5px;
+  background-color: #ccc;
+  text-align: left;
+  /* 确保文本左对齐 */
+  margin-top: 5px;
 }
 
 #questionAsk p {
-
-    margin: 5px;
-    padding: 5px 0;
+  margin: 5px;
+  padding: 5px 0;
 }
 
 #questionAsk span {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #questionDescribe {
-    text-align: left;
-    /* 确保文本左对齐 */
+  text-align: left;
+  /* 确保文本左对齐 */
 }
 </style>
