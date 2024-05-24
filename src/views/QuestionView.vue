@@ -58,6 +58,8 @@ import { onMounted, ref } from 'vue';
 
 import { useRouter } from 'vue-router'
 
+import '../hooks/useMonacoWorker'
+
 const value = `#include <iostream>
 using namespace std;
 
