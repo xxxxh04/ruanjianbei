@@ -200,12 +200,14 @@ function searchProblem() {
   };
   axios.post("http://localhost:8080/problem/search", params).then((result) => {
     console.log("返回结果：" + result.data.data);
+    //清空questionData
+    questionData.splice(0, questionData.length);
     Object.assign(questionData, result.data.data);
     questionData.forEach((question) => {
       // 初始化 lnames 数组
       question.lnames = question.labels.map((label) => label.lname);
     });
-    console.log(questionData);
+    console.log("所有结果：", questionData);
   });
 }
 
@@ -222,10 +224,6 @@ onMounted(() => {
   });
 });
 </script>
-
-<style scoped>
-@import "./css/CeShiComponent.css";
-</style>
 
 <style scoped>
 #title {
