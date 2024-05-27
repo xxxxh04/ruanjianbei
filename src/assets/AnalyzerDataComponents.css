@@ -1,4 +1,12 @@
 .analyzer-data-view {
-    height: 400px;
-    width: 400px;
+    height: 200px;
+    width: 300px;
+}
+
+header.el-header {
+    height: 20px;
+}
+
+main.el-main {
+    padding: 10px;
 }
