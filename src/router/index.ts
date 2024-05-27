@@ -3,7 +3,7 @@ import MainView from '../views/MainView.vue';
 import HomeComponenet from '../components/HomeComponent.vue';
 import CeShiComponent from '../components/CeShiComponent.vue';
 import QuestionView from '../views/QuestionView.vue';
-
+import AnalyzeView from '@/views/AnalyzeView.vue';
 import SuccessView from '../views/SuccessView.vue';
 
 
@@ -24,7 +24,12 @@ const router = createRouter({
           path: 'ceshi',
           name: 'ceshi',
           component: CeShiComponent
-        }
+        },
+        {
+          path: 'analyze',
+          name: 'analyze',
+          component: AnalyzeView
+        },
       ]
     },
     {
@@ -40,6 +45,7 @@ const router = createRouter({
       //   }
       // ]
     },
+    
     {
       path: '/success',
       name: 'success',

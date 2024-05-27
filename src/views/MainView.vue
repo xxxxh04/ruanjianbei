@@ -27,7 +27,7 @@
               <span>功能</span>
             </template>
             <el-menu-item index="2-1" @click="navigateTo('/ceshi')">1.智能评测系统</el-menu-item>
-            <el-menu-item index="2-2">2.</el-menu-item>
+            <el-menu-item index="2-2" @click="navigateTo('/analyze')">2.智能教育评价</el-menu-item>
           </el-sub-menu>
           <el-menu-item index="3">
             <el-icon><Location /></el-icon>
