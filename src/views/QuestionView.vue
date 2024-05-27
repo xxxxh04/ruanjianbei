@@ -46,7 +46,21 @@
           </div>
         </div>
       </div>
-      <div class="right-half" id="right-half"></div>
+      <!-- <div class="right-half" id="right-half"></div>
+      <button @click="submitCode">提交代码</button> -->
+      <div class="right-half">
+        <!-- 将 monaco 编辑器创建代码放入 right-half 中 -->
+        <div id="editor-container" style="height: 80%"></div>
+        <!-- 提交按钮 -->
+        <el-button
+          type="success"
+          round
+          style="margin-top: 20px"
+          @click="submitCode"
+        >
+          <el-icon><Pointer /></el-icon>提交代码</el-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +106,13 @@ const router = useRouter();
 function navigateTo(path: string) {
   router.push(path);
 }
-
+function submitCode() {
+  editorValue.value = edit.getValue();
+  router.push({
+    name: "success",
+    query: { passCode: editorValue.value, name: "张三" },
+  });
+}
 let questions = ref({
   state: 1,
   pid: 1,
@@ -108,7 +128,7 @@ let questions = ref({
   OutTest: null,
 });
 onMounted(() => {
-  edit = monaco.editor.create(document.getElementById("right-half"), {
+  edit = monaco.editor.create(document.getElementById("editor-container"), {
     value,
     language: "cpp",
     automaticLayout: true,
@@ -145,11 +165,11 @@ onMounted(() => {
 
 /* 右半部分样式 */
 .right-half {
-    flex: 1;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    /* 使右半部分内容过多时可以滚动 */
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  /* 使右半部分内容过多时可以滚动 */
 }
 
 #title {
