@@ -1,15 +1,15 @@
 <template>
   <div>
-    <header>
+    <div id="Title">
       <h1>软件杯小队名</h1>
-      <nav class="navigation">
-        <a href="#" style="color: #18183f"> Home </a>
-        <a href="#" style="color: #18183f"> About </a>
-        <a href="#" style="color: #18183f"> Services </a>
-        <a href="#" style="color: #18183f"> Contact </a>
-        <button class="btnLogin-popup" style="color: #18183f">Login</button>
+      <nav class="navbar">
+        <ul>
+          <li><a href="#"><span>用户：</span>{{ username }}</a></li>
+          <li><a href="#">退出</a></li>
+ 
+        </ul>
       </nav>
-    </header>
+    </div>
     <div class="split-screen">
       <div class="left-half">
         <!-- 左半部分内容 -->

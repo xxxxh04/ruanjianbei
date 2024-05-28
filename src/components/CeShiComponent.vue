@@ -27,8 +27,8 @@
                 <el-button
                   v-for="laberOption in laberOptions1"
                   :key="laberOption.value"
-                  :type="isChecked(laberOption.value) ? 'success' : 'default'"
-                  @click="toggleColor(laberOption.value)"
+                  :type="isChecked(laberOption.label) ? 'success' : 'default'"
+                  @click="toggleLaber(laberOption.label)"
                 >
                   {{ laberOption.label }}
                 </el-button>
@@ -38,8 +38,8 @@
                 <el-button
                   v-for="laberOption in laberOptions2"
                   :key="laberOption.value"
-                  :type="isChecked(laberOption.value) ? 'success' : 'default'"
-                  @click="toggleColor(laberOption.value)"
+                  :type="isChecked(laberOption.label) ? 'success' : 'default'"
+                  @click="toggleLaber(laberOption.label)"
                 >
                   {{ laberOption.label }}
                 </el-button>
@@ -75,15 +75,22 @@
       </div>
       <div id="showSelect">
         <span>已选择</span>
-        <el-button class="showSelectButton" v-if="selectedDiffculty">{{
-          selectDiffculty
-        }}</el-button>
+        <span v-if="checkedLabers.length === 0 && !selectedDiffculty"
+          >无信息</span
+        >
         <el-button
           class="showSelectButton"
-          v-for="checkedLaber in checkedLabers"
-          :key="checkedLaber"
+          v-if="selectedDiffculty"
+          @click="resetDifficulty"
+          >{{ selectDiffculty }}<span class="close-icon">x</span></el-button
         >
-          {{ checkedLaber }}
+        <el-button
+          class="showSelectButton"
+          v-for="(checkedLaber, index) in checkedLabers"
+          :key="checkedLaber"
+          @click="removeCheckedLaber(index)"
+        >
+          {{ checkedLaber }}<span class="close-icon">x</span>
         </el-button>
       </div>
     </div>
@@ -116,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref, onMounted } from "vue";
+import { reactive, computed, ref, onMounted, watch } from "vue";
 import axios from "axios";
 const selectDiffculty = ref(""); // 用于存储选中的难度
 const selectedDiffculty = ref(false); //是否选择难度
@@ -167,24 +174,38 @@ function showModal() {
   dialogVisible.value = true;
 }
 
-function toggleColor(color: string) {
-  const index = checkedLabers.indexOf(color);
+// 监听selectDiffculty的变化,显示选择的难度
+watch(selectDiffculty, (newVal) => {
+  if (newVal) {
+    selectedDiffculty.value = true;
+  }
+});
+
+function toggleLaber(Laber: string) {
+  const index = checkedLabers.indexOf(Laber);
   if (index === -1) {
-    checkedLabers.push(color);
+    checkedLabers.push(Laber);
   } else {
     checkedLabers.splice(index, 1);
   }
 }
 
-function isChecked(color) {
-  return checkedLabers.includes(color);
+function isChecked(Laber) {
+  return checkedLabers.includes(Laber);
 }
 
 function handleConfirm() {
   console.log("选中的标签：", checkedLabers);
   dialogVisible.value = false;
 }
+const resetDifficulty = () => {
+  selectedDiffculty.value = false;
+  selectDiffculty.value = "";
+};
 
+const removeCheckedLaber = (index: number) => {
+  checkedLabers.splice(index, 1);
+};
 function searchProblem() {
   // 执行搜索操作，这里可以根据搜索框中的内容执行相应的搜索逻辑
   console.log(
@@ -328,8 +349,15 @@ onMounted(() => {
   margin-right: 10px;
 }
 
-#showSelectButton {
-  margin-left: 10px;
+.showSelectButton {
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.showSelectButton:hover {
+  background-color: red;
+}
+#close-icon {
 }
 
 #questionMenu {
