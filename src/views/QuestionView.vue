@@ -72,7 +72,6 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 
 import "../hooks/useMonacoWorker";
-
 const value = `#include <iostream>
 using namespace std;
 
@@ -110,7 +109,7 @@ function submitCode() {
   editorValue.value = edit.getValue();
   router.push({
     name: "success",
-    query: { passCode: editorValue.value, name: "张三" },
+    query: { passCode: editorValue.value, name: "张三", pid: props.number },
   });
 }
 let questions = ref({

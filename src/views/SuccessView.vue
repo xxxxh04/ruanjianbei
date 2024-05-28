@@ -14,7 +14,7 @@
       <div class="left-half">
         <!-- 左半部分内容 -->
         <div id="passState">
-          <h2 v-if="passData.result == 1">通过</h2>
+          <h2 v-if="modelResult.result == 1">通过</h2>
           <h2 v-else>错误</h2>
         </div>
         <div id="passNameAndTime">
@@ -50,7 +50,7 @@
         <div id="modelFeedback">
           <p>模型反馈</p>
           <div id="feedbackText">
-            {{ passData.feedback }}
+            {{ modelResult.sug }}
           </div>
         </div>
       </div>
@@ -65,7 +65,8 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
-const passData = ref({
+import axios from "axios";
+let passData = ref({
   result: 1,
   name: "name",
   time: "11:11:11",
@@ -73,17 +74,40 @@ const passData = ref({
   passLanguage: "C++",
   passMemory: 100,
   passCode: "aaaa",
-  feedback: "bbbb",
+  pid: 1,
+  // feedback: "bbbb",
+});
+
+let modelResult = ref({
+  result: 1,
+  sug: [],
 });
 onMounted(() => {
+  console.log();
   var now = new Date();
-  var hours = now.getHours();
-  var minutes = now.getMinutes();
-  var seconds = now.getSeconds();
   const route = useRoute();
   passData.value.passCode = route.query.passCode;
   passData.value.name = route.query.name;
-  passData.value.time = hours + ":" + minutes + ":" + seconds;
+  passData.value.pid = route.query.pid;
+  passData.value.time =
+    now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+  const formData = new FormData();
+  formData.append("id", 1);
+  formData.append("question", route.query.passCode);
+  formData.append("pId", route.query.pid);
+  // const formObject = Object.fromEntries(formData);
+  // console.log(formObject);
+
+  axios
+    .post("http://localhost:8080/problem/sendQuestion", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // 设置请求头，告诉服务器发送的是form-data
+      },
+    })
+    .then((result) => {
+      modelResult.value = result.data.data;
+      console.log(modelResult.value);
+    });
 });
 </script>
 
