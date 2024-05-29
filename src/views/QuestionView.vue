@@ -50,7 +50,7 @@
       <button @click="submitCode">提交代码</button> -->
       <div class="right-half">
         <!-- 将 monaco 编辑器创建代码放入 right-half 中 -->
-        <div id="editor-container" style="height: 80%"></div>
+        <CodeEditor v-model="editorValue" />
         <!-- 提交按钮 -->
         <el-button
           type="success"
@@ -72,6 +72,7 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 
 import "../hooks/useMonacoWorker";
+import CodeEditor from "@/components/CodeEditor.vue";
 const value = `#include <iostream>
 using namespace std;
 
@@ -85,12 +86,6 @@ const props = defineProps({
 });
 const editorValue = ref("");
 
-let edit: monaco.editor.IStandaloneCodeEditor;
-
-function getEditorValue() {
-  editorValue.value = edit.getValue();
-  console.log(editorValue.value);
-}
 
 // const questions = {
 //   describe: "rtfgyhftyguh",
@@ -106,7 +101,6 @@ function navigateTo(path: string) {
   router.push(path);
 }
 function submitCode() {
-  editorValue.value = edit.getValue();
   router.push({
     name: "success",
     query: { passCode: editorValue.value, name: "张三", pid: props.number },
@@ -127,11 +121,6 @@ let questions = ref({
   OutTest: null,
 });
 onMounted(() => {
-  edit = monaco.editor.create(document.getElementById("editor-container"), {
-    value,
-    language: "cpp",
-    automaticLayout: true,
-  });
   const id = router.currentRoute.value.params.number;
   axios.get("http://localhost:8080/problem/findByid/" + id).then((result) => {
     questions.value = result.data.data;
