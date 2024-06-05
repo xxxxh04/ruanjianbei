@@ -50,7 +50,7 @@
       <button @click="submitCode">提交代码</button> -->
       <div class="right-half">
         <!-- 将 monaco 编辑器创建代码放入 right-half 中 -->
-        <CodeEditor v-model="editorValue" />
+        <CodeEditor v-model="editorValue" height="590px" />
         <!-- 提交按钮 -->
         <el-button
           type="success"
