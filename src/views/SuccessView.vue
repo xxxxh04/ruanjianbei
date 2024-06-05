@@ -55,14 +55,24 @@
         </div>
       </div>
       <div class="right-half">
-        <!-- 右半部分内容 -->
-        <h2>右半部分</h2>
+        <!-- 将 monaco 编辑器创建代码放入 right-half 中 -->
+        <CodeEditor v-model="editorValue" height="590px" />
+        <!-- 提交按钮 -->
+        <el-button
+          type="success"
+          round
+          style="margin-top: 20px"
+          @click="submitCode"
+        >
+          <el-icon><Pointer /></el-icon>提交代码</el-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import CodeEditor from "@/components/CodeEditor.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import axios from "axios";
