@@ -19,21 +19,19 @@
             </el-icon>
             <span>主页</span>
           </el-menu-item>
-          <el-sub-menu index="2">
-            <template #title>
-              <el-icon>
-                <Document />
-              </el-icon>
-              <span>功能</span>
-            </template>
-            <el-menu-item index="2-1" @click="navigateTo('/ceshi')">1.智能评测系统</el-menu-item>
-            <el-menu-item index="2-2" @click="navigateTo('/analyze')">2.智能教育评价</el-menu-item>
-          </el-sub-menu>
-          <el-menu-item index="3">
+          <el-menu-item index="2" @click="navigateTo('/ceshi')">
+            <el-icon><Document /></el-icon>
+            <span>题单</span>
+          </el-menu-item>
+          <el-menu-item index="3" @click="navigateTo('/analyze')">
+            <el-icon><DataAnalysis /></el-icon>
+            <span>分析</span>
+          </el-menu-item>
+          <el-menu-item index="4">
             <el-icon><Location /></el-icon>
             <span>关于</span>
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="5">
             <el-icon><Phone /></el-icon>
             <span>联系</span>
           </el-menu-item>
