@@ -4,9 +4,10 @@
       <h1>软件杯小队名</h1>
       <nav class="navbar">
         <ul>
-          <li><a href="#"><span>用户：</span>{{ username }}</a></li>
+          <li>
+            <a href="#"><span>用户：</span>{{ username }}</a>
+          </li>
           <li><a href="#">退出</a></li>
- 
         </ul>
       </nav>
     </div>
@@ -117,6 +118,9 @@ onMounted(() => {
     .then((result) => {
       modelResult.value = result.data.data;
       console.log(modelResult.value);
+    })
+    .catch((err) => {
+      modelResult.value.sug;
     });
 });
 </script>

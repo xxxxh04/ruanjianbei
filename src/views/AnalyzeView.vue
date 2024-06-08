@@ -14,15 +14,15 @@ import AnalyzeCodeProblem from "@/components/AnalyzeCodeProblem.vue";
 
 <style>
 .charts {
-  display: flex; /* 使用Flexbox布局 */
-  justify-content: flex-start; /* 子元素在主轴上（默认是水平方向）平均分布 */
-  align-items: center; /* 子元素在交叉轴上（默认是垂直方向）居中对齐 */
-  /* height: 200px;
-  width: 200px; */
-  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30%;
+  width: 110%;
 }
 .chart {
-  width: 45%;
-  height: 350px;
+  width: 85%;
+  height: 500px;
+  margin-top: 3%;
 }
 </style>

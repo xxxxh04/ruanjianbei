@@ -135,8 +135,8 @@ onMounted(() => {
 
 <style>
 @import "../assets/AnalyzerDataComponents.css";
-/* .chart {
+.chart {
   height: 500px;
   width: 500px;
-} */
+}
 </style>
