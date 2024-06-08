@@ -247,6 +247,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+a {
+  color: black;
+  text-decoration: none; /* 去除下划线 */
+  cursor: pointer; /* 鼠标悬停时显示手型光标 */
+}
 #title {
   padding: 10px;
   /* 添加一些内边距 */

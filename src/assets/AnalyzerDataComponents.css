@@ -10,3 +10,9 @@ header.el-header {
 main.el-main {
     padding: 10px;
 }
+
+.chart{
+    height: 500px;
+    width: 500px;
+
+}
