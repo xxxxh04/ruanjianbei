@@ -20,7 +20,7 @@
           <el-button id="laberShowbutton" type="primary" @click="showModal"
             >标签</el-button
           >
-          <el-dialog title="多选按钮弹框" v-model="dialogVisible" width="30%">
+          <el-dialog title="选择希望筛选的标签" v-model="dialogVisible" width="30%">
             <div id="selectLabel" class="select-label-container">
               <div class="label-group">
                 <span class="selectLabelSpan">基础</span>
