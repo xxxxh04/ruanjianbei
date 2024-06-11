@@ -16,7 +16,7 @@
       <nav class="navbar">
         <ul>
           <li><a href="#"><span>用户：</span></a></li>
-          <li><a href="#" >退出</a></li>
+          <li><a href="#">退出</a></li>
         </ul>
       </nav>
     </div>
@@ -31,13 +31,17 @@
 
 <style scoped>
 .header {
+  position: fixed; /* 将header位置固定 */
+  top: 0; /* 固定在顶部 */
+  left: 0; /* 固定在左边 */
+  width: 100%; /* 占据整个宽度 */
   display: flex;
   align-items: center;
-  width: 100%;
   padding: 10px 20px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* 确保内边距包含在总宽度内 */
+  z-index: 1000; /* 确保header在最上层 */
 }
 
 .title {
@@ -105,4 +109,8 @@ ul {
 .navbar li a:hover {
   color: aqua;
 }
+
+.mainview {
+  margin-top: 90px; /* 确保内容不被header遮挡，根据header的高度进行调整 */
+} 
 </style>

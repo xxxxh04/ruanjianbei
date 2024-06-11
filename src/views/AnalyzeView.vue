@@ -18,7 +18,7 @@ import AnalyzeCodeProblem from "@/components/AnalyzeCodeProblem.vue";
   justify-content: space-around;
   align-items: center;
   height: 30%;
-  width: 110%;
+  width: 100%;
 }
 .chart {
   width: 85%;

@@ -7,7 +7,7 @@
       <nav class="navbar">
         <ul>
           <li><a href="#"><span>用户：</span></a></li>
-          <li><a href="#" >退出</a></li>
+          <li><a href="#">退出</a></li>
         </ul>
       </nav>
     </div>
@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import * as monaco from "monaco-editor";
-import { onMounted, ref, reactive, defineProps } from "vue";
+import { onMounted, ref, defineProps } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 
@@ -86,15 +86,6 @@ const props = defineProps({
   name: String,
 });
 const editorValue = ref("");
-
-
-// const questions = {
-//   describe: "rtfgyhftyguh",
-//   inputDescribe: "dtrfyghuzzzzzzzzz",
-//   outputDescribe: "zzzzzzzzzzzzz",
-//   inText: "1 1 1",
-//   outText: "1",
-// };
 
 const router = useRouter();
 
@@ -125,8 +116,6 @@ onMounted(() => {
   const id = router.currentRoute.value.params.number;
   axios.get("http://localhost:8080/problem/findByid/" + id).then((result) => {
     questions.value = result.data.data;
-    // 初始化 lnames 数组
-    // questions.value.lnames = questions.value.labels.map((label) => label.lname);
     console.log("查询结果：", questions.value);
   });
 });
@@ -134,23 +123,23 @@ onMounted(() => {
 
 <style scoped>
 .header {
+  position: fixed; /* 将header位置固定 */
+  top: 0; /* 固定在顶部 */
+  left: 0; /* 固定在左边 */
+  width: 100%; /* 占据整个宽度 */
   display: flex;
   align-items: center;
-  width: 100%;
   padding: 10px 20px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* 确保内边距包含在总宽度内 */
+  z-index: 1000; /* 确保header在最上层 */
 }
 
 .title {
   margin-right: 20px;
   white-space: nowrap; /* 防止标题换行 */
 }
-
-
-
-
 
 .navbar {
   margin-left: auto; /* 将navbar推到右边 */
@@ -184,10 +173,8 @@ onMounted(() => {
 
 .split-screen {
   display: flex;
-  height: calc(100vh - 100px);
-  /* 100vh 减去 header 高度 */
-  overflow: auto;
-  /* 使内容溢出时可以滚动 */
+  height: calc(100vh - 90px); /* 100vh 减去 header 高度 */
+  padding-top: 60px; /* 确保内容不被header遮挡 */
 }
 
 /* 左半部分样式 */
@@ -195,30 +182,28 @@ onMounted(() => {
   flex: 1;
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
-  /* 使左半部分内容过多时可以滚动 */
+  height: calc(100vh - 90px); /* 100vh 减去 header 高度 */
+  overflow-y: auto; /* 使左半部分内容过多时可以滚动 */
 }
 
 /* 右半部分样式 */
 .right-half {
+  margin-top: 10px;
   flex: 1;
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
-  /* 使右半部分内容过多时可以滚动 */
+  /* 没有 overflow-y 使右半部分不滚动 */
 }
 
 #title {
   padding-top: 0;
   margin-bottom: 20px;
-  text-align: left;
-  /* 确保文本左对齐 */
+  text-align: left; /* 确保文本左对齐 */
 }
 
 #questionAsk {
   background-color: #ccc;
-  text-align: left;
-  /* 确保文本左对齐 */
+  text-align: left; /* 确保文本左对齐 */
   margin-top: 5px;
 }
 
@@ -232,7 +217,6 @@ onMounted(() => {
 }
 
 #questionDescribe {
-  text-align: left;
-  /* 确保文本左对齐 */
+  text-align: left; /* 确保文本左对齐 */
 }
 </style>
