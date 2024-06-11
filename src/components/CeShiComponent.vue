@@ -95,11 +95,11 @@
       </div>
     </div>
     <div id="questionMenu">
-      <el-table :data="questionData" style="width: 100%">
-        <el-table-column prop="state" label="状态" width="50">
+      <el-table :data="questionData" >
+        <el-table-column prop="state" label="状态" width="150">
         </el-table-column>
-        <el-table-column prop="pid" label="题号" width="100"> </el-table-column>
-        <el-table-column prop="pname" label="题目名称" width="800">
+        <el-table-column prop="pid" label="题号" width="150"> </el-table-column>
+        <el-table-column prop="pname" label="题目名称" width="850">
           <template v-slot="scope">
             <router-link
               :to="{
@@ -113,9 +113,9 @@
         </el-table-column>
         <el-table-column prop="lnames" label="标签" width="200">
         </el-table-column>
-        <el-table-column prop="difficulty" label="难度" width="100">
+        <el-table-column prop="difficulty" label="难度" width="150">
         </el-table-column>
-        <el-table-column prop="acNum" label="通过数" width="100">
+        <el-table-column prop="acNum" label="通过数" width="150">
         </el-table-column>
       </el-table>
     </div>

@@ -1,88 +1,108 @@
 <template>
   <div>
-    <div id="Title">
-      <h1>软件杯小队名</h1>
+    <div class="header">
+      <div class="title">
+        <h2>软件杯小队名</h2>
+      </div>
+      <div class="navigation">
+        <ul>
+          <li><router-link to="/">主页</router-link></li>
+          <li><router-link to="/ceshi">题库</router-link></li>
+          <li><router-link to="/analyze">分析</router-link></li>
+          <li><router-link to="/about">关于</router-link></li>
+          <li><router-link to="/contact">联系</router-link></li>
+        </ul>
+      </div>
       <nav class="navbar">
         <ul>
-          <li><a href="#"><span>用户：</span>{{ username }}</a></li>
-          <li><a href="#">退出</a></li>
- 
+          <li><a href="#"><span>用户：</span></a></li>
+          <li><a href="#" >退出</a></li>
         </ul>
       </nav>
     </div>
-    <div class="container">
-      <div class="left-section">
-        <el-menu class="el-menu-vertical-demo">
-          <el-menu-item index="1" @click="navigateTo('/')">
-            <el-icon>
-              <UserFilled />
-            </el-icon>
-            <span>主页</span>
-          </el-menu-item>
-          <el-menu-item index="2" @click="navigateTo('/ceshi')">
-            <el-icon><Document /></el-icon>
-            <span>题单</span>
-          </el-menu-item>
-          <el-menu-item index="3" @click="navigateTo('/analyze')">
-            <el-icon><DataAnalysis /></el-icon>
-            <span>分析</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <el-icon><Location /></el-icon>
-            <span>关于</span>
-          </el-menu-item>
-          <el-menu-item index="5">
-            <el-icon><Phone /></el-icon>
-            <span>联系</span>
-          </el-menu-item>
-        </el-menu>
-      </div>
-      <div class="right-section">
-        <router-view></router-view>
-      </div>
+    <div class="mainview">
+      <router-view></router-view>
     </div>
-    <footer>
-      <p>&copy; 2024 软件杯小队名. 保留所有权利.</p>
-    </footer>
   </div>
 </template>
 
-<script setup lang="ts">
-import { useRouter } from 'vue-router';
-import {ref} from 'vue';
-const router = useRouter()
-let username = ref("user1")
-function navigateTo(path: string) {
-  router.push(path)
-}
+<script lang="ts" setup>
 </script>
 
-
 <style scoped>
-@import "../assets/TitleAndNavigationBar.css";
-
-.container {
-    display: flex;
-    padding-top: 20px;
-    height: 800px;
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* 确保内边距包含在总宽度内 */
 }
 
-.left-section {
-    flex: 0 0 20%;
-
+.title {
+  margin-right: 20px;
+  white-space: nowrap; /* 防止标题换行 */
 }
 
-.right-section {
-    flex: 1;
+.navigation {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navigation > ul > li {
+  margin: 0 10px; /* 缩小li之间的间距 */
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap; /* 防止导航项换行 */
+}
+
+.navigation > ul > li > a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.navigation > ul > li > a:hover {
+  color: #007bff;
+  border-bottom: 2px solid #007bff; /* 模拟下划线效果 */
+}
+
+.navbar {
+  margin-left: auto; /* 将navbar推到右边 */
+  display: flex;
+  align-items: center; /* 确保垂直居中对齐 */
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar li {
+  margin-left: 15px;
+  white-space: nowrap; /* 防止用户和退出换行 */
+}
+
+.navbar li a {
+  color: #18183f;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px; /* 减小padding */
+}
+
+.navbar li a:hover {
+  color: aqua;
 }
 </style>
