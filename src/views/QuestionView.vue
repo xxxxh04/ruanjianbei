@@ -51,13 +51,14 @@
       <button @click="submitCode">提交代码</button> -->
       <div class="right-half">
         <!-- 将 monaco 编辑器创建代码放入 right-half 中 -->
-        <CodeEditor v-model="editorValue" height="590px" />
+        <CodeEditor v-model="editorValue" height="760px" />
         <!-- 提交按钮 -->
         <el-button
           type="success"
           round
           style="margin-top: 20px"
           @click="submitCode"
+          id="submit-button"
         >
           <el-icon><Pointer /></el-icon>提交代码</el-button
         >
@@ -194,7 +195,10 @@ onMounted(() => {
   box-sizing: border-box;
   /* 没有 overflow-y 使右半部分不滚动 */
 }
-
+#submit-button {
+  position: absolute; /* 绝对定位 */
+  right: 50px; /* 距离右边界20px */
+}
 #title {
   padding-top: 0;
   margin-bottom: 20px;
