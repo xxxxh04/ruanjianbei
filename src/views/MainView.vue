@@ -15,7 +15,11 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="#"><span>用户：</span></a></li>
+          <li>
+            <a href="#"
+              ><span>用户： {{ nickname }}</span></a
+            >
+          </li>
           <li><a href="#">退出</a></li>
         </ul>
       </nav>
@@ -27,6 +31,10 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
+import { useUserInfoStore } from "@/stores/user.js";
+const userInfoStore = useUserInfoStore();
+const nickname = ref(userInfoStore.info.nickname);
 </script>
 
 <style scoped>
@@ -112,5 +120,5 @@ ul {
 
 .mainview {
   margin-top: 90px; /* 确保内容不被header遮挡，根据header的高度进行调整 */
-} 
+}
 </style>

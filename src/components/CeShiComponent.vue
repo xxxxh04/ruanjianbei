@@ -20,7 +20,11 @@
           <el-button id="laberShowbutton" type="primary" @click="showModal"
             >标签</el-button
           >
-          <el-dialog title="选择希望筛选的标签" v-model="dialogVisible" width="30%">
+          <el-dialog
+            title="选择希望筛选的标签"
+            v-model="dialogVisible"
+            width="30%"
+          >
             <div id="selectLabel" class="select-label-container">
               <div class="label-group">
                 <span class="selectLabelSpan">基础</span>
@@ -95,11 +99,11 @@
       </div>
     </div>
     <div id="questionMenu">
-      <el-table :data="questionData" >
+      <el-table :data="questionData">
         <el-table-column prop="state" label="状态" width="150">
         </el-table-column>
         <el-table-column prop="pid" label="题号" width="150"> </el-table-column>
-        <el-table-column prop="pname" label="题目名称" width="850">
+        <el-table-column prop="pname" label="题目名称" width="600">
           <template v-slot="scope">
             <router-link
               :to="{
@@ -206,7 +210,20 @@ const resetDifficulty = () => {
 const removeCheckedLaber = (index: number) => {
   checkedLabers.splice(index, 1);
 };
-function searchProblem() {
+
+import { problemSearchService, problemFindAllService } from "@/api/problem.js";
+
+const findAllProblems = async () => {
+  const result = await problemFindAllService();
+  Object.assign(questionData, result.data);
+  questionData.forEach((question) => {
+    // 初始化 lnames 数组
+    question.lnames = question.labels.map((label) => label.lname);
+  });
+  console.log(result.data.data);
+  console.log(questionData);
+};
+const searchProblem = async () => {
   // 执行搜索操作，这里可以根据搜索框中的内容执行相应的搜索逻辑
   console.log(
     "执行搜索操作:",
@@ -219,30 +236,20 @@ function searchProblem() {
     labels: checkedLabers,
     content: searchInput.value,
   };
-  axios.post("http://localhost:8080/problem/search", params).then((result) => {
-    console.log("返回结果：" + result.data.data);
-    //清空questionData
-    questionData.splice(0, questionData.length);
-    Object.assign(questionData, result.data.data);
-    questionData.forEach((question) => {
-      // 初始化 lnames 数组
-      question.lnames = question.labels.map((label) => label.lname);
-    });
-    console.log("所有结果：", questionData);
+  const result = await problemSearchService(params);
+  //清空questionData
+  questionData.splice(0, questionData.length);
+  Object.assign(questionData, result.data);
+  questionData.forEach((question) => {
+    // 初始化 lnames 数组
+    question.lnames = question.labels.map((label) => label.lname);
   });
-}
+  console.log("所有结果：", questionData);
+};
 
 //加载所有题目
 onMounted(() => {
-  axios.get("http://localhost:8080/problem/findall").then((result) => {
-    Object.assign(questionData, result.data.data);
-    questionData.forEach((question) => {
-      // 初始化 lnames 数组
-      question.lnames = question.labels.map((label) => label.lname);
-    });
-    console.log(result.data.data);
-    console.log(questionData);
-  });
+  findAllProblems();
 });
 </script>
 

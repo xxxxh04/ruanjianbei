@@ -6,7 +6,11 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="#"><span>用户：</span></a></li>
+          <li>
+            <a href="#"
+              ><span>用户：{{ nickname }}</span></a
+            >
+          </li>
           <li><a href="#">退出</a></li>
         </ul>
       </nav>
@@ -72,7 +76,9 @@ import * as monaco from "monaco-editor";
 import { onMounted, ref, defineProps } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
-
+import { useUserInfoStore } from "@/stores/user.js";
+const userInfoStore = useUserInfoStore();
+const nickname = ref(userInfoStore.info.nickname);
 import "../hooks/useMonacoWorker";
 import CodeEditor from "@/components/CodeEditor.vue";
 const value = `#include <iostream>
@@ -113,12 +119,16 @@ let questions = ref({
   inTest: null,
   OutTest: null,
 });
-onMounted(() => {
+import { findProblemService } from "@/api/problem.js";
+const findProblem = async () => {
   const id = router.currentRoute.value.params.number;
-  axios.get("http://localhost:8080/problem/findByid/" + id).then((result) => {
-    questions.value = result.data.data;
-    console.log("查询结果：", questions.value);
-  });
+  console.log("查询id：", id);
+  const result = await findProblemService(id);
+  questions.value = result.data;
+  console.log("查询结果：", questions.value);
+};
+onMounted(() => {
+  findProblem();
 });
 </script>
 

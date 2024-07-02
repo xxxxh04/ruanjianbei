@@ -16,7 +16,8 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import axios from "axios";
+import { userInfoService } from "@/api/user.js";
+import { useUserInfoStore } from "@/stores/user.js";
 let user = ref({
   id: "",
   nickname: "test",
@@ -28,12 +29,19 @@ let user = ref({
   create_time: null,
   update_time: null,
 });
+
+//用于全局存储用户信息
+const userInfoStore = useUserInfoStore();
+const userInfo = async () => {
+  const result = await userInfoService();
+  user.value = result.data;
+  console.log("user：", user.value);
+  //把用户信息存入全局store
+  userInfoStore.info = result.data;
+};
 onMounted(() => {
-  axios.get("http://localhost:8080/user/userinfo?id=" + "1").then((result) => {
-    console.log(result.data.data);
-    user.value = result.data.data;
-    console.log("user:" + user);
-  });
+  userInfo();
+  console.log("user:" + user);
 });
 </script>
 

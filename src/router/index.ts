@@ -5,7 +5,7 @@ import CeShiComponent from '../components/CeShiComponent.vue';
 import QuestionView from '../views/QuestionView.vue';
 import AnalyzeView from '@/views/AnalyzeView.vue';
 import SuccessView from '../views/SuccessView.vue';
-
+import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -50,6 +50,11 @@ const router = createRouter({
       path: '/success',
       name: 'success',
       component: SuccessView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     }
   ]
 });

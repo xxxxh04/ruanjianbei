@@ -6,7 +6,11 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="#"><span>用户：</span></a></li>
+          <li>
+            <a href="#"
+              ><span>用户： {{ nickname }}</span></a
+            >
+          </li>
           <li><a href="#">退出</a></li>
         </ul>
       </nav>
@@ -77,7 +81,7 @@
 import CodeEditor from "@/components/CodeEditor.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
-import axios from "axios";
+import { useUserInfoStore } from "@/stores/user.js";
 let passData = ref({
   result: 1,
   name: "name",
@@ -94,8 +98,13 @@ let modelResult = ref({
   result: 1,
   sug: [],
 });
-onMounted(() => {
-  console.log();
+
+//获取用户信息
+const userInfoStore = useUserInfoStore();
+const id = ref(userInfoStore.info.id);
+const nickname = ref(userInfoStore.info.nickname);
+import { problemTestService } from "@/api/problem.js";
+const setMessage = async () => {
   var now = new Date();
   const route = useRoute();
   passData.value.passCode = route.query.passCode;
@@ -104,25 +113,17 @@ onMounted(() => {
   passData.value.time =
     now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
   const formData = new FormData();
-  formData.append("id", 1);
+  formData.append("id", id);
   formData.append("question", route.query.passCode);
   formData.append("pId", route.query.pid);
   // const formObject = Object.fromEntries(formData);
   // console.log(formObject);
-
-  axios
-    .post("http://localhost:8080/problem/sendQuestion", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data", // 设置请求头，告诉服务器发送的是form-data
-      },
-    })
-    .then((result) => {
-      modelResult.value = result.data.data;
-      console.log(modelResult.value);
-    })
-    .catch((err) => {
-      modelResult.value.sug;
-    });
+  const result = await problemTestService(FormData);
+  modelResult.value = result.data;
+  console.log(modelResult.value);
+};
+onMounted(() => {
+  setMessage();
 });
 </script>
 
@@ -190,7 +191,6 @@ onMounted(() => {
   height: calc(100vh - 90px); /* 100vh 减去 header 高度 */
   overflow-y: auto; /* 使左半部分内容过多时可以滚动 */
 }
-
 
 /* 右半部分样式 */
 .right-half {
