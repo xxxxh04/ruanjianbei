@@ -6,6 +6,7 @@ import QuestionView from '../views/QuestionView.vue';
 import AnalyzeView from '@/views/AnalyzeView.vue';
 import SuccessView from '../views/SuccessView.vue';
 import LoginView from '@/views/LoginView.vue';
+import InformationView from '../views/InformationView.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -30,6 +31,11 @@ const router = createRouter({
           name: 'analyze',
           component: AnalyzeView
         },
+        {
+            path: '/information',
+            name: 'information',
+            component: InformationView
+          }
       ]
     },
     {

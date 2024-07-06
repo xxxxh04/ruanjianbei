@@ -9,6 +9,7 @@
           <li><router-link to="/">主页</router-link></li>
           <li><router-link to="/ceshi">题库</router-link></li>
           <li><router-link to="/analyze">分析</router-link></li>
+          <li><router-link to="/information">学生信息</router-link></li>
           <li><router-link to="/about">关于</router-link></li>
           <li><router-link to="/contact">联系</router-link></li>
         </ul>
