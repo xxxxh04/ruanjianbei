@@ -46,7 +46,18 @@
           prop="nickname"
           label="学生名称"
           width="200"
-        ></el-table-column>
+        >
+        <template v-slot="scope">
+            <router-link
+              :to="{
+                name: 'student',
+                params: { id: scope.row.id },
+              }"
+              target="_blank"
+              >{{ scope.row.nickname }}</router-link
+            >
+          </template>
+    </el-table-column>
         <el-table-column
           prop="phone"
           label="手机号码"

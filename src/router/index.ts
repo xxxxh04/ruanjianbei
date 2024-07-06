@@ -7,7 +7,7 @@ import AnalyzeView from '@/views/AnalyzeView.vue';
 import SuccessView from '../views/SuccessView.vue';
 import LoginView from '@/views/LoginView.vue';
 import InformationView from '../views/InformationView.vue';
-
+import StudentView from '../views/StudentView.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -43,15 +43,13 @@ const router = createRouter({
       name: 'question',
       component: QuestionView,
       props: true,
-      // children: [
-      //   {
-      //     path: 'input',
-      //     name: 'input',
-      //     component: InputComponent
-      //   }
-      // ]
     },
-    
+    {
+      path: '/student/:id',
+      name: 'student',
+      component: StudentView,
+      props: true,
+    },
     {
       path: '/success',
       name: 'success',
