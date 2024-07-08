@@ -112,11 +112,11 @@ const setMessage = async () => {
   passData.value.pid = route.query.pid;
   passData.value.time =
     now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-  const formData = new FormData();
-  formData.append("id", id);
-  formData.append("question", route.query.passCode);
-  formData.append("pId", route.query.pid);
-  const result = await problemTestService(FormData);
+  const formData = ref({});
+  formData.value.id = id;
+  formData.value.question = passData.value.passCode;
+  formData.value.pId = passData.value.pid;
+  const result = await problemTestService(formData.value);
   modelResult.value = result.data;
   console.log(modelResult.value);
 };

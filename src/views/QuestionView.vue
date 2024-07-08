@@ -30,7 +30,7 @@
         <div id="questionDescribe">
           <h3>题目描述</h3>
           <div id="questionDescribeShow">
-            <p>{{ questions.content }}</p>
+            <p>{{ questions.proCon }}</p>
           </div>
           <h4>输入描述</h4>
           <div id="questionInputDescribeShow">
@@ -109,7 +109,7 @@ let questions = ref({
   pname: "abc",
   difficulty: "简单",
   acnum: "1",
-  content: null,
+  proCon: "",
   labels: ["二分", "模拟"],
   lnames: [],
   inDetail: null,
