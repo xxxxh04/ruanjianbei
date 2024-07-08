@@ -72,9 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import * as monaco from "monaco-editor";
 import { onMounted, ref, defineProps } from "vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
 import { useUserInfoStore } from "@/stores/user.js";
 const userInfoStore = useUserInfoStore();

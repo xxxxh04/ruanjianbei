@@ -7,9 +7,15 @@
       <div class="navigation">
         <ul>
           <li><router-link to="/">主页</router-link></li>
-          <li><router-link to="/ceshi">题库</router-link></li>
-          <li><router-link to="/analyze">分析</router-link></li>
-          <li><router-link to="/information">学生信息</router-link></li>
+          <li>
+            <router-link to="/ceshi">题库</router-link>
+          </li>
+          <li v-if="role === 'student'">
+            <router-link to="/analyze">分析</router-link>
+          </li>
+          <li v-if="role != 'student'">
+            <router-link to="/information">学生信息</router-link>
+          </li>
           <li><router-link to="/about">关于</router-link></li>
           <li><router-link to="/contact">联系</router-link></li>
         </ul>
@@ -17,11 +23,13 @@
       <nav class="navbar">
         <ul>
           <li>
-            <a href="#"
-              ><span>用户： {{ nickname }}</span></a
+            <a href="http://localhost:5173/"
+              ><span>用户： {{ username }}</span></a
             >
           </li>
-          <li><a href="#">退出</a></li>
+          <div @click="logOut">
+            <li><a href="http://localhost:5173/login">退出</a></li>
+          </div>
         </ul>
       </nav>
     </div>
@@ -32,10 +40,33 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
+import { useTokenStore } from "@/stores/token.js";
+const username = ref("");
+const role = ref("");
 const userInfoStore = useUserInfoStore();
-const nickname = ref(userInfoStore.info.nickname);
+onMounted(() => {
+  username.value = userInfoStore.info.username;
+  watch(
+    () => userInfoStore.info,
+    (newInfo) => {
+      userInfoStore.setInfo(newInfo);
+      username.value = newInfo.username;
+      role.value = newInfo.role;
+    }
+  );
+});
+
+//退出登录
+const logOut = () => {
+  //清除userinfo
+  const userInfoStore = useUserInfoStore();
+  userInfoStore.removeInfo();
+  //清楚token
+  const tokenStore = useTokenStore(); //得到token的存储
+  tokenStore.removeToken(); //清除token
+};
 </script>
 
 <style scoped>

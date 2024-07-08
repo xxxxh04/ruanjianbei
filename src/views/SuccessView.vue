@@ -116,8 +116,6 @@ const setMessage = async () => {
   formData.append("id", id);
   formData.append("question", route.query.passCode);
   formData.append("pId", route.query.pid);
-  // const formObject = Object.fromEntries(formData);
-  // console.log(formObject);
   const result = await problemTestService(FormData);
   modelResult.value = result.data;
   console.log(modelResult.value);

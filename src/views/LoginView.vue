@@ -51,7 +51,11 @@ const register = async () => {
 
 //------------------------------登录---------------------------------------
 import { useTokenStore } from "@/stores/token.js";
+import { useUserInfoStore } from "@/stores/user.js";
 const tokenStore = useTokenStore(); //得到token的存储
+//存储用户信息
+const userInfoStore = useUserInfoStore();
+
 const login = async () => {
   const result = await userLoginService(registerData.value);
   //把得到的token存储到pinia中
@@ -59,6 +63,7 @@ const login = async () => {
   tokenStore.setToken(result.data);
   console.log("data:", result.data);
   console.log("token:", tokenStore.token);
+
   ElMessage({
     message: "登录成功",
     type: "success",

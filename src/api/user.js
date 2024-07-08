@@ -22,3 +22,22 @@ export const userLoginService = (loginData) => {
 export const userInfoService = () => {
   return request.get("/user/userInfo");
 };
+
+//查询所在班级的学生
+export const queryStudentByClassId = (classId) => {
+  return request.get("/user/stuList", { params: { classId } });
+};
+
+//按条件查询学生
+export const searchStudent = (queryParams) => {
+  const params = new URLSearchParams();
+  for (let key in queryParams) {
+    params.append(key, queryParams[key]);
+  }
+  return request.post("/user/searchStu", params);
+};
+
+//按id查询学习情况
+export const queryConditon = (id) => {
+  return request.get("/user/condition", { params: { id } });
+};

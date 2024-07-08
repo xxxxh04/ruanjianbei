@@ -128,7 +128,6 @@
 
 <script setup lang="ts">
 import { reactive, computed, ref, onMounted, watch } from "vue";
-import axios from "axios";
 const selectDiffculty = ref(""); // 用于存储选中的难度
 const selectedDiffculty = ref(false); //是否选择难度
 const diffcultyOptions = reactive([

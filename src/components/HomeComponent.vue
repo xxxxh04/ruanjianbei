@@ -9,15 +9,16 @@
         <div class="userPhone">{{ user.phone }}</div>
         <div class="userSignature">{{ user.signature }}</div>
         <div class="userEmail">{{ user.email }}</div>
+        <div class="userCname">{{ user.cname }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { userInfoService } from "@/api/user.js";
+import { onBeforeMount, ref, onMounted } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
+import { userInfoService } from "@/api/user.js";
 let user = ref({
   id: "",
   nickname: "test",
@@ -28,21 +29,24 @@ let user = ref({
   email: "",
   create_time: null,
   update_time: null,
+  role: "",
+  acNum: "",
+  cid: 0,
+  cname: "",
 });
-
-//用于全局存储用户信息
-const userInfoStore = useUserInfoStore();
 const userInfo = async () => {
   const result = await userInfoService();
-  user.value = result.data;
-  console.log("user：", user.value);
   //把用户信息存入全局store
   userInfoStore.info = result.data;
+  user.value = userInfoStore.info;
 };
 onMounted(() => {
+  const userInfoStore = useUserInfoStore();
+  console.log("userInfo:", userInfoStore.info);
   userInfo();
-  console.log("user:" + user);
 });
+//用于全局存储用户信息
+const userInfoStore = useUserInfoStore();
 </script>
 
 <style scoped>
