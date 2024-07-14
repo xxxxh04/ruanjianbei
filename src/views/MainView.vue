@@ -18,7 +18,7 @@
             <router-link v-else to="/analyze">分析</router-link>
           </li>
           <li>
-            <span v-if="!username && role === 'teacher'" @click="checkLogin">学生信息</span>
+            <span v-show="role === 'teacher'" v-if="!username " @click="checkLogin">学生信息</span>
             <router-link v-else to="/information">学生信息</router-link>
           </li>
           <li>
