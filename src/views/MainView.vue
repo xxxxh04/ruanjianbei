@@ -2,34 +2,46 @@
   <div>
     <div class="header">
       <div class="title">
-        <h2>软件杯小队名</h2>
+        <h1>蒸!———智能化教育系统</h1>
       </div>
       <div class="navigation">
         <ul>
-          <li><router-link to="/">主页</router-link></li>
           <li>
-            <router-link to="/ceshi">题库</router-link>
+            <router-link to="/">题库</router-link>
           </li>
-          <li v-if="role === 'student'">
-            <router-link to="/analyze">分析</router-link>
+          <li>
+            <span v-if="!username" @click="checkLogin">个人主页</span>
+            <router-link v-else to="/home">个人主页</router-link>
           </li>
-          <li v-if="role != 'student'">
-            <router-link to="/information">学生信息</router-link>
+          <li>
+            <span v-if="!username" @click="checkLogin">分析</span>
+            <router-link v-else to="/analyze">分析</router-link>
           </li>
-          <li><router-link to="/about">关于</router-link></li>
-          <li><router-link to="/contact">联系</router-link></li>
+          <li>
+            <span v-if="!username && role === 'teacher'" @click="checkLogin">学生信息</span>
+            <router-link v-else to="/information">学生信息</router-link>
+          </li>
+          <li>
+            <span v-if="!username" @click="checkLogin">关于</span>
+            <router-link v-else to="/about">关于</router-link>
+          </li>
+          <li>
+            <span v-if="!username" @click="checkLogin">联系</span>
+            <router-link v-else to="/contact">联系</router-link>
+          </li>
         </ul>
       </div>
       <nav class="navbar">
         <ul>
-          <li>
-            <a href="http://localhost:5173/"
-              ><span>用户： {{ username }}</span></a
-            >
+          <li v-if="username">
+            <a href="http://localhost:5173/"><span>用户： {{ username }}</span></a>
           </li>
-          <div @click="logOut">
-            <li><a href="http://localhost:5173/login">退出</a></li>
-          </div>
+          <li v-if="username" @click="logOut">
+            <a href="http://localhost:5173/login">退出</a>
+          </li>
+          <li v-else>
+            <el-button type="primary" @click="goToAbout" class="loginButton">登录/注册</el-button>
+          </li>
         </ul>
       </nav>
     </div>
@@ -43,11 +55,17 @@
 import { ref, onMounted, watch } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
 import { useTokenStore } from "@/stores/token.js";
+import { useRouter } from "vue-router";
+import { ElMessageBox } from 'element-plus';
+
 const username = ref("");
 const role = ref("");
 const userInfoStore = useUserInfoStore();
+const router = useRouter();
+
 onMounted(() => {
   username.value = userInfoStore.info.username;
+  role.value = userInfoStore.info.role;
   watch(
     () => userInfoStore.info,
     (newInfo) => {
@@ -58,35 +76,50 @@ onMounted(() => {
   );
 });
 
-//退出登录
+// 检查登录状态
+const checkLogin = () => {
+  if (!username.value) {
+    ElMessageBox.alert('请先登录', '提示', {
+      confirmButtonText: '确定',
+      callback: () => {}
+    });
+  }
+};
+
+// 退出登录
 const logOut = () => {
-  //清除userinfo
-  const userInfoStore = useUserInfoStore();
   userInfoStore.removeInfo();
-  //清楚token
-  const tokenStore = useTokenStore(); //得到token的存储
-  tokenStore.removeToken(); //清除token
+  const tokenStore = useTokenStore();
+  tokenStore.removeToken();
+  router.push("/login");
+};
+
+const goToAbout = () => {
+  userInfoStore.removeInfo();
+  const tokenStore = useTokenStore();
+  tokenStore.removeToken();
+  router.push("/login");
 };
 </script>
 
 <style scoped>
 .header {
-  position: fixed; /* 将header位置固定 */
-  top: 0; /* 固定在顶部 */
-  left: 0; /* 固定在左边 */
-  width: 100%; /* 占据整个宽度 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 10px 20px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* 确保内边距包含在总宽度内 */
-  z-index: 1000; /* 确保header在最上层 */
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .title {
   margin-right: 20px;
-  white-space: nowrap; /* 防止标题换行 */
+  white-space: nowrap;
 }
 
 .navigation {
@@ -103,27 +136,30 @@ ul {
 }
 
 .navigation > ul > li {
-  margin: 0 10px; /* 缩小li之间的间距 */
+  margin: 0 10px;
   font-size: 18px;
   font-weight: 500;
-  white-space: nowrap; /* 防止导航项换行 */
+  white-space: nowrap;
 }
 
-.navigation > ul > li > a {
+.navigation > ul > li > a,
+.navigation > ul > li > span {
   color: #333;
   text-decoration: none;
   padding: 10px;
+  cursor: pointer; /* 增加光标样式，显示为可点击 */
 }
 
-.navigation > ul > li > a:hover {
+.navigation > ul > li > a:hover,
+.navigation > ul > li > span:hover {
   color: #007bff;
-  border-bottom: 2px solid #007bff; /* 模拟下划线效果 */
+  border-bottom: 2px solid #007bff;
 }
 
 .navbar {
-  margin-left: auto; /* 将navbar推到右边 */
+  margin-left: auto;
   display: flex;
-  align-items: center; /* 确保垂直居中对齐 */
+  align-items: center;
 }
 
 .navbar ul {
@@ -135,7 +171,7 @@ ul {
 
 .navbar li {
   margin-left: 15px;
-  white-space: nowrap; /* 防止用户和退出换行 */
+  white-space: nowrap;
 }
 
 .navbar li a {
@@ -143,14 +179,18 @@ ul {
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  padding: 5px; /* 减小padding */
+  padding: 5px;
 }
 
 .navbar li a:hover {
   color: aqua;
 }
 
+.loginButton {
+  background: linear-gradient(135deg, #00dcc2, #00dc93) !important;
+}
+
 .mainview {
-  margin-top: 90px; /* 确保内容不被header遮挡，根据header的高度进行调整 */
+  margin-top: 90px;
 }
 </style>

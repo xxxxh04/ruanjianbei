@@ -12,6 +12,7 @@
         <div class="userCname">{{ user.cname }}</div>
       </div>
     </div>
+    <LineChart />
   </div>
 </template>
 
@@ -19,6 +20,7 @@
 import { onBeforeMount, ref, onMounted } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
 import { userInfoService } from "@/api/user.js";
+import LineChart from './LineChart.vue';
 let user = ref({
   id: "",
   nickname: "test",
@@ -51,7 +53,7 @@ const userInfoStore = useUserInfoStore();
 
 <style scoped>
 #userface {
-  background-color: lightgray;
+  background-color: #EEEEEE;
   /* 设置背景色为浅灰色 */
   padding: 10px;
   /* 添加一些内边距 */
@@ -61,6 +63,9 @@ const userInfoStore = useUserInfoStore();
   /* 使用flex布局 */
   align-items: center;
   /* 垂直居中 */
+  width: 80%;
+  margin-left: 10%;
+  margin-top:6%
 }
 
 .el-avatar {

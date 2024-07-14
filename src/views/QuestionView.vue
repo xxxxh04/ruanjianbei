@@ -2,16 +2,19 @@
   <div>
     <div class="header">
       <div class="title">
-        <h2>软件杯小队名</h2>
+        <h1>蒸!———智能化教育系统</h1>
       </div>
       <nav class="navbar">
         <ul>
-          <li>
-            <a href="#"
-              ><span>用户：{{ nickname }}</span></a
-            >
+          <li v-if="username">
+            <a href="http://localhost:5173/"><span>用户： {{ username }}</span></a>
           </li>
-          <li><a href="#">退出</a></li>
+          <li v-if="username" @click="logOut">
+            <a href="http://localhost:5173/login">退出</a>
+          </li>
+          <li v-else>
+            <el-button type="primary" @click="goToAbout" class="loginButton">登录/注册</el-button>
+          </li>
         </ul>
       </nav>
     </div>
@@ -125,6 +128,17 @@ const findProblem = async () => {
   questions.value = result.data;
   console.log("查询结果：", questions.value);
 };
+
+const goToAbout = () => {
+    // 清除userinfo
+    const userInfoStore = useUserInfoStore();
+  userInfoStore.removeInfo();
+  // 清除token
+  // const tokenStore = useTokenStore();
+  // tokenStore.removeToken();
+  // 跳转到登录页面
+  router.push("/login");
+};
 onMounted(() => {
   findProblem();
 });
@@ -183,7 +197,7 @@ onMounted(() => {
 .split-screen {
   display: flex;
   height: calc(100vh - 90px); /* 100vh 减去 header 高度 */
-  padding-top: 60px; /* 确保内容不被header遮挡 */
+  padding-top: 70px; /* 确保内容不被header遮挡 */
 }
 
 /* 左半部分样式 */
@@ -230,5 +244,8 @@ onMounted(() => {
 
 #questionDescribe {
   text-align: left; /* 确保文本左对齐 */
+}
+.loginButton{
+  background: linear-gradient(135deg, #00dcc2, #00dc93) !important;
 }
 </style>

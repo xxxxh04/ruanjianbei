@@ -13,13 +13,14 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.2",
-    "echarts": "^5.5.0",
+    "echarts": "^5.5.1",
     "element-plus": "^2.7.3",
     "jwt-decode": "^4.0.0",
     "monaco-editor": "^0.48.0",
     "pinia": "^2.1.7",
     "pinia-persistedstate-plugin": "^0.1.0",
     "vue": "^3.4.21",
+    "vue-echarts": "^6.7.3",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

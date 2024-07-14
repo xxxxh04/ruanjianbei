@@ -4,7 +4,10 @@
   </div>
   <div class="search-form">
     <el-form :inline="true">
-      <el-form-item label="学生名称:" style="margin-right: 700px">
+      <el-form-item>
+        <span class="filter-label">筛选条件：</span>
+      </el-form-item>
+      <el-form-item label="学生名称:">
         <el-input
           v-model="form.username"
           placeholder="请输入学生名称"
@@ -30,6 +33,7 @@
       <el-table-column prop="username" label="学生名称" width="200">
         <template v-slot="scope">
           <router-link
+          class="hover-link"
             :to="{
               name: 'student',
               params: { id: scope.row.id },
@@ -110,9 +114,7 @@ const searchAllStudent = async () => {
 const fetchStudents = async (queryParams: Record<string, any> = {}) => {
   console.log("queryParams:", queryParams);
   const result = await searchStudent(queryParams);
-  // console.log("result:", result.data);
   students.value = result.data;
-  // console.log("students:", students.value);
 };
 
 const onSearch = async () => {
@@ -126,13 +128,11 @@ const onSearch = async () => {
     queryParams.id = Number(form.value.id);
   }
   queryParams.cid = Number(userInfoStore.info.cid);
-  // console.log("queryParams:", queryParams);
   await fetchStudents(queryParams);
 };
 
 onMounted(() => {
   searchAllStudent();
-  //遍历students,打印每个username
 });
 </script>
 
@@ -146,19 +146,45 @@ onMounted(() => {
   /* 使用flex布局 */
   align-items: center;
   /* 垂直居中 */
+  margin-left: 10%;
 }
 
 .search-form {
-  margin: 20px;
-  margin-top: 0;
-  border: 1px solid black; /* 黑色边框 */
-  padding: 10px; /* 给表单一些内边距，让内容不贴边 */
-  padding-top: 20px;
+  padding: 10px;
+  padding-left: 0;
+  padding-bottom: 0;
+  align-items: center;
+  margin-left: 10%;
+  width: 80%;
+  background-color: #eeeeee;
 }
+
+.filter-label {
+  font-size: 16px; /* 设置字体大小 */
+  color: #333; /* 设置字体颜色 */
+}
+
 .search-table {
-  margin: 20px;
-  border: 1px solid black; /* 黑色边框 */
-  padding: 10px; /* 给表单一些内边距，让内容不贴边 */
-  padding-top: 20px;
+  padding: 10px;
+  /* 添加一些内边距 */
+  padding-left: 0;
+  /* 去掉左边的padding */
+  align-items: center;
+  /* 垂直居中 */
+  /* border: 1px solid #000; */
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;}
+
+  .search-table ::v-deep .el-table th {
+  background-color: #EEEEEE;
+}
+.hover-link {
+  color: black;
+  text-decoration: none; /* 移除下划线 */
+}
+
+.hover-link:hover {
+  color: #3366FF;
 }
 </style>

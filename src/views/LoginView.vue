@@ -69,7 +69,7 @@ const login = async () => {
     type: "success",
   });
   //使用路由跳转到首页
-  router.push("/");
+  router.push("/ceshi");
 };
 
 //清空表单函数
@@ -84,7 +84,7 @@ const clearForm = () => {
 
 <template>
   <el-row class="login-page">
-    <el-col :span="12" class="bg"></el-col>
+    <el-col :span="6" class="bg"></el-col>
     <el-col :span="6" :offset="3" class="form">
       <!-- 注册表单 -->
       <el-form
@@ -136,6 +136,7 @@ const clearForm = () => {
           <el-link
             type="info"
             :underline="false"
+            style="color: #FFF;" 
             @click="
               isRegister = false;
               clearForm();
@@ -171,6 +172,7 @@ const clearForm = () => {
             type="password"
             placeholder="请输入密码"
             v-model="registerData.password"
+            
           ></el-input>
         </el-form-item>
         <el-form-item class="flex">
@@ -190,52 +192,77 @@ const clearForm = () => {
           >
         </el-form-item>
         <el-form-item class="flex">
-          <el-link
-            type="info"
-            :underline="false"
-            @click="
-              isRegister = true;
-              clearForm();
-            "
-          >
-            注册 →
-          </el-link>
+          <div style="display: flex; justify-content: center; width: 100%;">
+  <span style="color: black;">没有账号</span> 
+  <el-link
+    type="info"
+    :underline="false"
+    style="color: #3366FF;" 
+    @click="
+      isRegister = true;
+      clearForm();
+    "
+  >
+    去注册 →
+  </el-link>
+</div>
         </el-form-item>
       </el-form>
     </el-col>
+    <el-col :span="6" class="bg"></el-col>
   </el-row>
 </template>
 
 <style lang="scss" scoped>
 /* 样式 */
+body{
+  
+}
+
 .login-page {
-  height: 100vh;
+  background: url("@/assets/beijin.png");
+  background-size: 100%, 100%;
   background-color: #fff;
+  display: flex; // 使用 flex 布局
+    justify-content: center; // 子元素在容器中水平居中
+    align-items: center; // 子元素在容器中垂直居中
+    height: 90vh; // 父容器高度设置为视口高度
+    
 
   .bg {
-    background: url("@/assets/logo2.png") no-repeat 60% center / 240px auto,
-      url("@/assets/login_bg.jpg") no-repeat center / cover;
-    border-radius: 0 20px 20px 0;
+    // background: url("@/assets/beijin.png") no-repeat 60% center / 240px auto,
+    //   url("@/assets/login_bg.jpg") no-repeat center / cover;
+    // border-radius: 0 20px 20px 0;
   }
 
   .form {
+    backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     user-select: none;
-
+    height: 60%;
     .title {
       margin: 0 auto;
     }
-
-    .button {
+    h1{
       width: 100%;
     }
-
+    .button {
+      margin: 0 auto; // 将按钮居中
+      border-radius: 50px; // 添加圆角样式
+      width: 90%;
+      background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
+    }
+    .el-input{
+      margin-left: 5%;
+      width: 90%;
+    }
     .flex {
       width: 100%;
       display: flex;
       justify-content: space-between;
+      margin: 10px;
     }
   }
 }

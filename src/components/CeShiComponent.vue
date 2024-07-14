@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class = "ceshi">
     <div id="title">
-      <h2>题目列表</h2>
+      <h3>题目列表</h3>
     </div>
     <div id="selectFace">
       <div id="selectmenu">
@@ -17,7 +17,7 @@
           </el-select>
         </div>
         <div id="laberShow">
-          <el-button id="laberShowbutton" type="primary" @click="showModal"
+          <el-button id="laberShowbutton" type="primary" @click="showModal" 
             >标签</el-button
           >
           <el-dialog
@@ -106,6 +106,7 @@
         <el-table-column prop="pname" label="题目名称" width="600">
           <template v-slot="scope">
             <router-link
+            class="hover-link"
               :to="{
                 name: 'question',
                 params: { number: scope.row.pid, name: scope.row.pname },
@@ -119,7 +120,7 @@
         </el-table-column>
         <el-table-column prop="difficulty" label="难度" width="150">
         </el-table-column>
-        <el-table-column prop="acNum" label="通过数" width="150">
+        <el-table-column prop="acNum" label="通过数" width="115">
         </el-table-column>
       </el-table>
     </div>
@@ -253,6 +254,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.ceshi{
+  
+}
+
 a {
   color: black;
   text-decoration: none; /* 去除下划线 */
@@ -267,6 +273,7 @@ a {
   /* 使用flex布局 */
   align-items: center;
   /* 垂直居中 */
+  margin-left: 10%;
 }
 
 #title h2 {
@@ -282,8 +289,10 @@ a {
   /* 去掉左边的padding */
   align-items: center;
   /* 垂直居中 */
-  border: 1px solid #000;
-  margin-left: 10px;
+  /* border: 1px solid #000; */
+  margin-left: 10%;
+  width: 80%;
+  background-color: #EEEEEE;
 }
 
 #selectmenu {
@@ -296,6 +305,7 @@ a {
   align-items: center;
   /* 垂直居中 */
   margin-left: 10px;
+  
 }
 
 #selectmenu span {
@@ -310,10 +320,11 @@ a {
 #laberShowbutton {
   margin-left: 20px;
   width: 100px;
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
   border-color: #dcdfe6 !important;
   /* 设置边框颜色 */
   color: inherit !important;
+  background-color: #fff;
 }
 
 .select-label-container {
@@ -363,10 +374,13 @@ a {
 .showSelectButton {
   transition: background-color 0.3s;
   margin-right: 10px;
+  background-color: blue; /* 按钮背景色为蓝色 */
+  color: white; /* 按钮文字颜色为白色 */
 }
 
 .showSelectButton:hover {
   background-color: red;
+  color: white;
 }
 #close-icon {
 }
@@ -378,8 +392,22 @@ a {
   /* 去掉左边的padding */
   align-items: center;
   /* 垂直居中 */
-  border: 1px solid #000;
-  margin-left: 10px;
-  margin-top: 30px;
+  /* border: 1px solid #000; */
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;
+}
+#questionMenu ::v-deep .el-table th {
+  background-color: #EEEEEE;
+}
+.hover-link {
+  color: black;
+  text-decoration: none; /* 移除下划线 */
+}
+
+.hover-link:hover {
+  color: #3366FF;
 }
 </style>
+
+

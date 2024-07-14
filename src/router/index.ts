@@ -17,12 +17,12 @@ const router = createRouter({
       component: MainView,
       children: [
         {
-          path: '',
+          path: '/home',
           name: 'home',
           component: HomeComponenet
         },
         {
-          path: 'ceshi',
+          path: '/',
           name: 'ceshi',
           component: CeShiComponent
         },
@@ -36,6 +36,12 @@ const router = createRouter({
             name: 'information',
             component: InformationView
           }
+          ,
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    }
       ]
     },
     {
@@ -54,13 +60,9 @@ const router = createRouter({
       path: '/success',
       name: 'success',
       component: SuccessView
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView
     }
   ]
+  
 });
 
 export default router;
