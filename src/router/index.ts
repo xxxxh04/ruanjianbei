@@ -17,17 +17,17 @@ const router = createRouter({
       component: MainView,
       children: [
         {
-          path: '/home',
+          path: '/',
           name: 'home',
           component: HomeComponenet
         },
         {
-          path: '/',
+          path: '/ceshi',
           name: 'ceshi',
           component: CeShiComponent
         },
         {
-          path: 'analyze',
+          path: '/analyze',
           name: 'analyze',
           component: AnalyzeView
         },

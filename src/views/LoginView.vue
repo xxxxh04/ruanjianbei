@@ -69,7 +69,7 @@ const login = async () => {
     type: "success",
   });
   //使用路由跳转到首页
-  router.push("/ceshi");
+  router.push("/");
 };
 
 //清空表单函数
@@ -136,7 +136,7 @@ const clearForm = () => {
           <el-link
             type="info"
             :underline="false"
-            style="color: #FFF;" 
+            style="color: #fff"
             @click="
               isRegister = false;
               clearForm();
@@ -172,7 +172,6 @@ const clearForm = () => {
             type="password"
             placeholder="请输入密码"
             v-model="registerData.password"
-            
           ></el-input>
         </el-form-item>
         <el-form-item class="flex">
@@ -192,20 +191,20 @@ const clearForm = () => {
           >
         </el-form-item>
         <el-form-item class="flex">
-          <div style="display: flex; justify-content: center; width: 100%;">
-  <span style="color: black;">没有账号</span> 
-  <el-link
-    type="info"
-    :underline="false"
-    style="color: #3366FF;" 
-    @click="
-      isRegister = true;
-      clearForm();
-    "
-  >
-    去注册 →
-  </el-link>
-</div>
+          <div style="display: flex; justify-content: center; width: 100%">
+            <span style="color: black">没有账号</span>
+            <el-link
+              type="info"
+              :underline="false"
+              style="color: #3366ff"
+              @click="
+                isRegister = true;
+                clearForm();
+              "
+            >
+              去注册 →
+            </el-link>
+          </div>
         </el-form-item>
       </el-form>
     </el-col>
@@ -215,8 +214,7 @@ const clearForm = () => {
 
 <style lang="scss" scoped>
 /* 样式 */
-body{
-  
+body {
 }
 
 .login-page {
@@ -224,10 +222,9 @@ body{
   background-size: 100%, 100%;
   background-color: #fff;
   display: flex; // 使用 flex 布局
-    justify-content: center; // 子元素在容器中水平居中
-    align-items: center; // 子元素在容器中垂直居中
-    height: 90vh; // 父容器高度设置为视口高度
-    
+  justify-content: center; // 子元素在容器中水平居中
+  align-items: center; // 子元素在容器中垂直居中
+  height: 90vh; // 父容器高度设置为视口高度
 
   .bg {
     // background: url("@/assets/beijin.png") no-repeat 60% center / 240px auto,
@@ -245,7 +242,7 @@ body{
     .title {
       margin: 0 auto;
     }
-    h1{
+    h1 {
       width: 100%;
     }
     .button {
@@ -254,7 +251,7 @@ body{
       width: 90%;
       background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
     }
-    .el-input{
+    .el-input {
       margin-left: 5%;
       width: 90%;
     }

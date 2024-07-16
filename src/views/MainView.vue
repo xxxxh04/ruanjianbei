@@ -7,18 +7,23 @@
       <div class="navigation">
         <ul>
           <li>
-            <router-link to="/">题库</router-link>
+            <router-link to="/ceshi">题库</router-link>
           </li>
           <li>
             <span v-if="!username" @click="checkLogin">个人主页</span>
-            <router-link v-else to="/home">个人主页</router-link>
+            <router-link v-else to="/">个人主页</router-link>
           </li>
           <li>
             <span v-if="!username" @click="checkLogin">分析</span>
             <router-link v-else to="/analyze">分析</router-link>
           </li>
           <li>
-            <span v-show="role === 'teacher'" v-if="!username " @click="checkLogin">学生信息</span>
+            <span
+              v-show="role === 'teacher'"
+              v-if="!username"
+              @click="checkLogin"
+              >学生信息</span
+            >
             <router-link v-else to="/information">学生信息</router-link>
           </li>
           <li>
@@ -34,13 +39,17 @@
       <nav class="navbar">
         <ul>
           <li v-if="username">
-            <a href="http://localhost:5173/"><span>用户： {{ username }}</span></a>
+            <a href="http://localhost:5173/"
+              ><span>用户： {{ username }}</span></a
+            >
           </li>
           <li v-if="username" @click="logOut">
             <a href="http://localhost:5173/login">退出</a>
           </li>
           <li v-else>
-            <el-button type="primary" @click="goToAbout" class="loginButton">登录/注册</el-button>
+            <el-button type="primary" @click="goToAbout" class="loginButton"
+              >登录/注册</el-button
+            >
           </li>
         </ul>
       </nav>
@@ -56,7 +65,7 @@ import { ref, onMounted, watch } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
 import { useTokenStore } from "@/stores/token.js";
 import { useRouter } from "vue-router";
-import { ElMessageBox } from 'element-plus';
+import { ElMessageBox } from "element-plus";
 
 const username = ref("");
 const role = ref("");
@@ -79,9 +88,9 @@ onMounted(() => {
 // 检查登录状态
 const checkLogin = () => {
   if (!username.value) {
-    ElMessageBox.alert('请先登录', '提示', {
-      confirmButtonText: '确定',
-      callback: () => {}
+    ElMessageBox.alert("请先登录", "提示", {
+      confirmButtonText: "确定",
+      callback: () => {},
     });
   }
 };
