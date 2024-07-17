@@ -7,13 +7,17 @@
       <nav class="navbar">
         <ul>
           <li v-if="username">
-            <a href="http://localhost:5173/"><span>用户： {{ username }}</span></a>
+            <a href="http://localhost:5173/"
+              ><span>用户： {{ username }}</span></a
+            >
           </li>
           <li v-if="username" @click="logOut">
             <a href="http://localhost:5173/login">退出</a>
           </li>
           <li v-else>
-            <el-button type="primary" @click="goToAbout" class="loginButton">登录/注册</el-button>
+            <el-button type="primary" @click="goToAbout" class="loginButton"
+              >登录/注册</el-button
+            >
           </li>
         </ul>
       </nav>
@@ -57,8 +61,12 @@
         </div>
         <div id="modelFeedback">
           <p>模型反馈</p>
-          <div id="feedbackText">
-            {{ modelResult.sug }}
+          <div
+            id="feedbackText"
+            v-for="(message, index) in formattedMessages"
+            :key="index"
+          >
+            {{ message }}
           </div>
         </div>
         <div id="modelFeedback">
@@ -90,7 +98,7 @@
 <script setup lang="ts">
 import CodeEditor from "@/components/CodeEditor.vue";
 import { useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
 let passData = ref({
   result: 1,
@@ -112,7 +120,7 @@ let modelResult = ref({
 //获取用户信息
 const userInfoStore = useUserInfoStore();
 const id = ref(userInfoStore.info.id);
-const nickname = ref(userInfoStore.info.nickname);
+const username = ref(userInfoStore.info.username);
 import { problemTestService } from "@/api/problem.js";
 const setMessage = async () => {
   var now = new Date();
@@ -128,11 +136,15 @@ const setMessage = async () => {
   formData.value.pId = passData.value.pid;
   const result = await problemTestService(formData.value);
   modelResult.value = result.data;
+  if
   console.log(modelResult.value);
 };
+const formattedMessages = computed(() =>
+  modelResult.value.sug.map((message, index) => `${index + 1}. ${message}`)
+);
 const goToAbout = () => {
-    // 清除userinfo
-    const userInfoStore = useUserInfoStore();
+  // 清除userinfo
+  const userInfoStore = useUserInfoStore();
   userInfoStore.removeInfo();
   // 清除token
   // const tokenStore = useTokenStore();
