@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <div class="title">
-        <h1>蒸!———智能化教育系统</h1>
+        <h1>AlgoEdu</h1>
       </div>
       <div class="navigation">
         <ul>
