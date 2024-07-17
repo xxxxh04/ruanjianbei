@@ -8,7 +8,8 @@ import SuccessView from '../views/SuccessView.vue';
 import LoginView from '@/views/LoginView.vue';
 import InformationView from '../views/InformationView.vue';
 import StudentView from '../views/StudentView.vue';
-import ModifInformation from '../components/modif_information.vue'
+import ModifInformation from '../components/modif_information.vue';
+import Addclass from '../components/AddClass.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -48,6 +49,10 @@ const router = createRouter({
       path: '/modif',
       name: 'modif',
       component: ModifInformation
+    },{
+      path: '/addclass',
+      name: 'addclass',
+      component: Addclass
     }
       ]
     },

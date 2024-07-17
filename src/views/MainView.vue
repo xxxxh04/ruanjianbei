@@ -10,8 +10,8 @@
             <router-link to="/">题库</router-link>
           </li>
           <li>
-            <!-- <span v-if="!username" @click="checkLogin">个人主页</span> -->
-            <router-link  to="/home">个人主页</router-link>
+            <span v-if="!username" @click="checkLogin">个人主页</span>
+            <router-link v-else to="/home">个人主页</router-link>
           </li>
           <li>
             <span v-if="!username" @click="checkLogin">分析</span>

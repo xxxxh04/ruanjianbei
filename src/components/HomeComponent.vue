@@ -8,7 +8,6 @@
         <div class="userNickname">{{ user.nickname }}</div>
         <div class="userPhone">{{ user.phone }}</div>
         <div class="userEmail">{{ user.email }}</div>
-        <div class="userCname">{{ user.cname }}</div>
       </div>
     </div>
     <div class="student_information">
@@ -20,9 +19,9 @@
       </div>
       <div class="modif_information right_section">
         <div class="userSignature">
-          <span class="span_information">我的班级：</span>  <span>{{ userclass ? userclass : '无' }}</span>
+          <span class="span_information">我的班级：</span>  <span>{{ user.cname}}</span>
         </div>
-        <el-button class="modif_button" type="primary">加入班级</el-button>
+        <el-button class="modif_button" type="primary" @click="navigateToAdd">加入班级</el-button>
       </div>
     </div>
     <LineChart />
@@ -50,7 +49,6 @@ let user = ref({
   cid: 0,
   cname: "",
 });
-let uerclass = ref("");
 const userInfo = async () => {
   const result = await userInfoService();
   userInfoStore.info = result.data;
@@ -59,6 +57,10 @@ const userInfo = async () => {
 const navigateToModif = () => {
   window.location.href = 'http://localhost:5173/modif';
 };
+const navigateToAdd = () => {
+  window.location.href = 'http://localhost:5173/addclass';
+};
+
 onMounted(() => {
   const userInfoStore = useUserInfoStore();
   console.log("userInfo:", userInfoStore.info);

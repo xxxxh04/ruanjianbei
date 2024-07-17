@@ -25,9 +25,7 @@
             <el-form-item label="邮箱">
               <el-input class="custom-input" v-model="form.email" placeholder="Enter email"></el-input>
             </el-form-item>
-            <el-form-item label="不知道是啥">
-              <el-input class="custom-input" v-model="form.cname" placeholder="Enter company name"></el-input>
-            </el-form-item>
+
           </div>
           <div class="form-row">
             <el-form-item label="个人简介">
@@ -54,7 +52,6 @@
     password: '',
     phone: '',
     email: '',
-    cname: '',
     signature: '',
   });
   
