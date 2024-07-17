@@ -136,7 +136,6 @@ const setMessage = async () => {
   formData.value.pId = passData.value.pid;
   const result = await problemTestService(formData.value);
   modelResult.value = result.data;
-  if
   console.log(modelResult.value);
 };
 const formattedMessages = computed(() =>
