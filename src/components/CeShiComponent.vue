@@ -97,6 +97,7 @@
           {{ checkedLaber }}<span class="close-icon">x</span>
         </el-button>
       </div>
+      
     </div>
     <div id="questionMenu">
       <el-table :data="questionData">

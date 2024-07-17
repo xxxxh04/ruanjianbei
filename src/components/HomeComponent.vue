@@ -7,9 +7,22 @@
         <div class="userName">{{ user.username }}</div>
         <div class="userNickname">{{ user.nickname }}</div>
         <div class="userPhone">{{ user.phone }}</div>
-        <div class="userSignature">{{ user.signature }}</div>
         <div class="userEmail">{{ user.email }}</div>
         <div class="userCname">{{ user.cname }}</div>
+      </div>
+    </div>
+    <div class="student_information">
+      <div class="modif_information left_section">
+        <div class="userSignature">
+          <span class="span_information">个人简历：</span>{{ user.signature }}
+        </div>
+        <el-button class="modif_button" type="primary" @click="navigateToModif">修改信息</el-button>
+      </div>
+      <div class="modif_information right_section">
+        <div class="userSignature">
+          <span class="span_information">我的班级：</span>  <span>{{ userclass ? userclass : '无' }}</span>
+        </div>
+        <el-button class="modif_button" type="primary">加入班级</el-button>
       </div>
     </div>
     <LineChart />
@@ -17,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
 import { userInfoService } from "@/api/user.js";
 import LineChart from './LineChart.vue';
+
 let user = ref({
   id: "",
   nickname: "test",
@@ -36,68 +50,93 @@ let user = ref({
   cid: 0,
   cname: "",
 });
+let uerclass = ref("");
 const userInfo = async () => {
   const result = await userInfoService();
-  //把用户信息存入全局store
   userInfoStore.info = result.data;
   user.value = userInfoStore.info;
+};
+const navigateToModif = () => {
+  window.location.href = 'http://localhost:5173/modif';
 };
 onMounted(() => {
   const userInfoStore = useUserInfoStore();
   console.log("userInfo:", userInfoStore.info);
   userInfo();
 });
-//用于全局存储用户信息
+
 const userInfoStore = useUserInfoStore();
 </script>
 
 <style scoped>
 #userface {
-  background-color: #EEEEEE;
-  /* 设置背景色为浅灰色 */
+  background-color: #eeeeee;
   padding: 10px;
-  /* 添加一些内边距 */
   padding-left: 0;
-  /* 去掉左边的padding */
   display: flex;
-  /* 使用flex布局 */
   align-items: center;
-  /* 垂直居中 */
   width: 80%;
   margin-left: 10%;
-  margin-top:6%
+  margin-top: 6%;
 }
 
 .el-avatar {
   border-radius: 4px;
-  /* 设置边框半径为4px，使其为矩形，带有稍微圆角 */
   width: 100px;
-  /* 设置头像的宽度 */
   height: 100px;
-  /* 设置头像的高度 */
   overflow: hidden;
-  /* 确保头像内容保持在定义的形状内 */
   margin-left: 10px;
-  /* 将头像框移动到userface左边界10px处 */
-}
-
-/* 如果您需要完全没有圆角的矩形头像，将border-radius设置为0 */
-.el-avatar {
-  border-radius: 0;
 }
 
 .userinfo {
   display: flex;
   flex-direction: column;
-  /* 垂直排列子元素 */
   justify-content: center;
-  /* 垂直居中对齐 */
 }
 
 .username,
 .useraccount,
 .usersignature {
   margin: 2px 0;
-  /* 每个信息项之间添加一些间距 */
+}
+
+.student_information {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;
+  background-color: #eeeeee;
+  padding: 10px;
+}
+
+.modif_information {
+  flex-basis: 48%;
+  padding: 10px;
+  padding-left: 0;
+  padding-top: 2px;
+  display: flex; /* 使用Flex布局 */
+  flex-direction: column; /* 垂直排列内容 */
+  justify-content: flex-start; /* 内容向左对齐 */
+}
+
+.modif_button {
+  background: linear-gradient(135deg, #00dcc2, #00dc93) !important;
+  margin-left: 0; /* 确保按钮没有左边距 */
+  margin-top: 10px; /* 添加顶部间距以增加可读性 */
+  width: 20%;
+}
+
+
+.userSignature {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.span_information {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #333;
 }
 </style>

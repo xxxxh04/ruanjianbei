@@ -2,7 +2,7 @@
     <!-- 图表容器 -->
     <div>
       <!-- 使用 vue-echarts 的 v-chart 组件来渲染 ECharts 图表 -->
-      <v-chart :option="chartOption" style="width: 100%; height: 400px;"></v-chart>
+      <v-chart :option="chartOption" style="width: 100%; height: 400px; "></v-chart>
     </div>
   </template>
   
@@ -37,9 +37,7 @@
     tooltip: {
       trigger: 'axis' // 设置提示框触发类型为坐标轴触发
     },
-    legend: {
-      data: ['销量'] // 图例数据
-    },
+
     xAxis: {
       type: 'category', // x 轴类型为类目型
       data: ['2024-1', '2024-2', '2024-3', '2024-4', '2024-5','2024-6','2024-7'] // x 轴数据

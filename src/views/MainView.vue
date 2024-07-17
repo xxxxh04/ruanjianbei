@@ -7,11 +7,11 @@
       <div class="navigation">
         <ul>
           <li>
-            <router-link to="/ceshi">题库</router-link>
+            <router-link to="/">题库</router-link>
           </li>
           <li>
-            <span v-if="!username" @click="checkLogin">个人主页</span>
-            <router-link v-else to="/">个人主页</router-link>
+            <!-- <span v-if="!username" @click="checkLogin">个人主页</span> -->
+            <router-link  to="/home">个人主页</router-link>
           </li>
           <li>
             <span v-if="!username" @click="checkLogin">分析</span>
@@ -39,7 +39,7 @@
       <nav class="navbar">
         <ul>
           <li v-if="username">
-            <a href="http://localhost:5173/"
+            <a href="http://localhost:5173/home"
               ><span>用户： {{ username }}</span></a
             >
           </li>

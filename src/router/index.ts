@@ -8,6 +8,7 @@ import SuccessView from '../views/SuccessView.vue';
 import LoginView from '@/views/LoginView.vue';
 import InformationView from '../views/InformationView.vue';
 import StudentView from '../views/StudentView.vue';
+import ModifInformation from '../components/modif_information.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -17,12 +18,12 @@ const router = createRouter({
       component: MainView,
       children: [
         {
-          path: '/',
+          path: '/home',
           name: 'home',
           component: HomeComponenet
         },
         {
-          path: '/ceshi',
+          path: '/',
           name: 'ceshi',
           component: CeShiComponent
         },
@@ -41,6 +42,12 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    }
+    ,
+    {
+      path: '/modif',
+      name: 'modif',
+      component: ModifInformation
     }
       ]
     },
