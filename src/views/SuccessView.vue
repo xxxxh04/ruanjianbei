@@ -61,6 +61,13 @@
             {{ modelResult.sug }}
           </div>
         </div>
+        <div id="modelFeedback">
+          <p>资源推荐</p>
+          <div id="feedbackText">
+            <!-- 在这个地方改成你后端给的资源 -->
+            {{ modelResult.sug }}
+          </div>
+        </div>
       </div>
       <div class="right-half">
         <!-- 将 monaco 编辑器创建代码放入 right-half 中 -->
