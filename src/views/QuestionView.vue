@@ -7,13 +7,17 @@
       <nav class="navbar">
         <ul>
           <li v-if="username">
-            <a href="http://localhost:5173/"><span>用户： {{ username }}</span></a>
+            <a href="http://localhost:5173/"
+              ><span>用户： {{ username }}</span></a
+            >
           </li>
           <li v-if="username" @click="logOut">
             <a href="http://localhost:5173/login">退出</a>
           </li>
           <li v-else>
-            <el-button type="primary" @click="goToAbout" class="loginButton">登录/注册</el-button>
+            <el-button type="primary" @click="goToAbout" class="loginButton"
+              >登录/注册</el-button
+            >
           </li>
         </ul>
       </nav>
@@ -78,8 +82,9 @@
 import { onMounted, ref, defineProps } from "vue";
 import { useRouter } from "vue-router";
 import { useUserInfoStore } from "@/stores/user.js";
+import { useTokenStore } from "@/stores/token.js";
 const userInfoStore = useUserInfoStore();
-const nickname = ref(userInfoStore.info.nickname);
+const username = ref(userInfoStore.info.username);
 import "../hooks/useMonacoWorker";
 import CodeEditor from "@/components/CodeEditor.vue";
 const value = `#include <iostream>
@@ -103,7 +108,11 @@ function navigateTo(path: string) {
 function submitCode() {
   router.push({
     name: "success",
-    query: { passCode: editorValue.value, name: "张三", pid: props.number },
+    query: {
+      passCode: editorValue.value,
+      name: username.value,
+      pid: props.number,
+    },
   });
 }
 let questions = ref({
@@ -130,13 +139,13 @@ const findProblem = async () => {
 };
 
 const goToAbout = () => {
-    // 清除userinfo
-    const userInfoStore = useUserInfoStore();
+  // 清除userinfo
+  const userInfoStore = useUserInfoStore();
   userInfoStore.removeInfo();
-  // 清除token
-  // const tokenStore = useTokenStore();
-  // tokenStore.removeToken();
-  // 跳转到登录页面
+  //  清除token
+  const tokenStore = useTokenStore();
+  tokenStore.removeToken();
+  //跳转到登录页面
   router.push("/login");
 };
 onMounted(() => {
@@ -245,7 +254,7 @@ onMounted(() => {
 #questionDescribe {
   text-align: left; /* 确保文本左对齐 */
 }
-.loginButton{
+.loginButton {
   background: linear-gradient(135deg, #00dcc2, #00dc93) !important;
 }
 </style>

@@ -41,3 +41,17 @@ export const searchStudent = (queryParams) => {
 export const queryConditon = (id) => {
   return request.get("/user/condition", { params: { id } });
 };
+
+//更新信息
+export const updateInfo = (updateData) => {
+  return request.put("/user/update", updateData);
+};
+
+//修改密码
+export const userChangePassword = (updateData) => {
+  const params = new URLSearchParams();
+  for (let key in updateData) {
+    params.append(key, updateData[key]);
+  }
+  return request.patch("/user/updatePwd", params);
+};

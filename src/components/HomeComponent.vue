@@ -15,13 +15,18 @@
         <div class="userSignature">
           <span class="span_information">个人简历：</span>{{ user.signature }}
         </div>
-        <el-button class="modif_button" type="primary" @click="navigateToModif">修改信息</el-button>
+        <el-button class="modif_button" type="primary" @click="navigateToModif"
+          >修改信息</el-button
+        >
       </div>
       <div class="modif_information right_section">
         <div class="userSignature">
-          <span class="span_information">我的班级：</span>  <span>{{ user.cname}}</span>
+          <span class="span_information">我的班级：</span>
+          <span>{{ user.cname }}</span>
         </div>
-        <el-button class="modif_button" type="primary" @click="navigateToAdd">加入班级</el-button>
+        <el-button class="modif_button" type="primary" @click="navigateToAdd"
+          >加入班级</el-button
+        >
       </div>
     </div>
     <LineChart />
@@ -29,10 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
-import { userInfoService } from "@/api/user.js";
-import LineChart from './LineChart.vue';
+import LineChart from "./LineChart.vue";
 
 let user = ref({
   id: "",
@@ -49,25 +53,26 @@ let user = ref({
   cid: 0,
   cname: "",
 });
-const userInfo = async () => {
-  const result = await userInfoService();
-  userInfoStore.info = result.data;
-  user.value = userInfoStore.info;
-};
 const navigateToModif = () => {
-  window.location.href = 'http://localhost:5173/modif';
+  window.location.href = "http://localhost:5173/modif";
 };
 const navigateToAdd = () => {
-  window.location.href = 'http://localhost:5173/addclass';
+  window.location.href = "http://localhost:5173/addclass";
 };
 
 onMounted(() => {
   const userInfoStore = useUserInfoStore();
   console.log("userInfo:", userInfoStore.info);
-  userInfo();
+  user.value = userInfoStore.info;
+  watch(
+    () => userInfoStore.info,
+    (newInfo) => {
+      console.log("newInfo:", newInfo);
+      userInfoStore.setInfo(newInfo);
+      user.value = newInfo.username;
+    }
+  );
 });
-
-const userInfoStore = useUserInfoStore();
 </script>
 
 <style scoped>
@@ -128,7 +133,6 @@ const userInfoStore = useUserInfoStore();
   margin-top: 10px; /* 添加顶部间距以增加可读性 */
   width: 20%;
 }
-
 
 .userSignature {
   display: flex;

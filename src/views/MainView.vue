@@ -13,18 +13,18 @@
             <span v-if="!username" @click="checkLogin">个人主页</span>
             <router-link v-else to="/home">个人主页</router-link>
           </li>
-          <li>
+          <li v-if="role === 'student'">
             <span v-if="!username" @click="checkLogin">分析</span>
             <router-link v-else to="/analyze">分析</router-link>
           </li>
-          <li>
+          <li v-if="role === 'teacher'">
             <span
               v-show="role === 'teacher'"
               v-if="!username"
               @click="checkLogin"
               >学生信息</span
             >
-            <router-link v-else to="/information">学生信息</router-link>
+            <router-link to="/information">学生信息</router-link>
           </li>
           <li>
             <span v-if="!username" @click="checkLogin">关于</span>

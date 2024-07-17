@@ -71,9 +71,13 @@
         </div>
         <div id="modelFeedback">
           <p>资源推荐</p>
-          <div id="feedbackText">
+          <div
+            id="feedbackText"
+            v-for="(sou, index) in formattedSources"
+            :key="index"
+          >
             <!-- 在这个地方改成你后端给的资源 -->
-            {{ modelResult.sug }}
+            {{ sou }}
           </div>
         </div>
       </div>
@@ -97,9 +101,11 @@
 
 <script setup lang="ts">
 import CodeEditor from "@/components/CodeEditor.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref, computed } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
+import { useTokenStore } from "@/stores/token.js";
+const router = useRouter();
 let passData = ref({
   result: 1,
   name: "name",
@@ -115,6 +121,7 @@ let passData = ref({
 let modelResult = ref({
   result: 1,
   sug: [],
+  sou: [],
 });
 
 //获取用户信息
@@ -141,13 +148,16 @@ const setMessage = async () => {
 const formattedMessages = computed(() =>
   modelResult.value.sug.map((message, index) => `${index + 1}. ${message}`)
 );
+const formattedSources = computed(() =>
+  modelResult.value.sou.map((sou, index) => `${index + 1}. ${sou}`)
+);
 const goToAbout = () => {
   // 清除userinfo
   const userInfoStore = useUserInfoStore();
   userInfoStore.removeInfo();
   // 清除token
-  // const tokenStore = useTokenStore();
-  // tokenStore.removeToken();
+  const tokenStore = useTokenStore();
+  tokenStore.removeToken();
   // 跳转到登录页面
   router.push("/login");
 };

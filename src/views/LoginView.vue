@@ -12,6 +12,7 @@ const registerData = ref({
   username: "",
   password: "",
   rePassword: "",
+  role: "",
 });
 
 //检验密码函数
@@ -52,22 +53,46 @@ const register = async () => {
 //------------------------------登录---------------------------------------
 import { useTokenStore } from "@/stores/token.js";
 import { useUserInfoStore } from "@/stores/user.js";
+import { userInfoService } from "@/api/user.js";
+import { classFindService } from "@/api/class.js";
 const tokenStore = useTokenStore(); //得到token的存储
-//存储用户信息
-const userInfoStore = useUserInfoStore();
-
+let user = ref({
+  id: "",
+  nickname: "test",
+  username: "",
+  phone: 123456,
+  signature: "这是个啥",
+  picture: "testurl",
+  email: "",
+  create_time: null,
+  update_time: null,
+  role: "",
+  acNum: "",
+  cid: 0,
+  cname: "",
+});
+const userInfo = async () => {
+  const userInfoStore = useUserInfoStore();
+  const result = await userInfoService();
+  userInfoStore.info = result.data;
+  user.value = userInfoStore.info;
+  console.log("登录：", user.value);
+  if (user.value.cid != null) {
+    const result = await classFindService();
+    user.value = result.data;
+    userInfoStore.setInfo(result.data);
+  }
+};
 const login = async () => {
   const result = await userLoginService(registerData.value);
   //把得到的token存储到pinia中
-  console.log("result:", result);
   tokenStore.setToken(result.data);
-  console.log("data:", result.data);
-  console.log("token:", tokenStore.token);
-
+  //把用户信息存储到pinia中
   ElMessage({
     message: "登录成功",
     type: "success",
   });
+  userInfo();
   //使用路由跳转到首页
   router.push("/");
 };
@@ -78,6 +103,7 @@ const clearForm = () => {
     username: "",
     password: "",
     rePassword: "",
+    role: "",
   };
 };
 </script>
@@ -97,6 +123,12 @@ const clearForm = () => {
       >
         <el-form-item>
           <h1>注册</h1>
+        </el-form-item>
+        <el-form-item prop="role">
+          <el-radio-group v-model="registerData.role">
+            <el-radio value="student">学生</el-radio>
+            <el-radio value="teacher">教师</el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item prop="username">
           <el-input
@@ -239,6 +271,12 @@ body {
     justify-content: center;
     user-select: none;
     height: 60%;
+    .el-radio-group {
+      width: 90%; // 根据需要调整宽度
+      display: flex;
+      justify-content: space-around; // 使选项按钮在水平方向上分散
+    }
+
     .title {
       margin: 0 auto;
     }

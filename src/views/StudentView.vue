@@ -6,10 +6,12 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li >
-            <a href="http://localhost:5173/"><span>用户： {{ username }}</span></a>
+          <li>
+            <a href="http://localhost:5173/"
+              ><span>用户： {{ username }}</span></a
+            >
           </li>
-          <li  @click="logOut">
+          <li @click="logOut">
             <a href="http://localhost:5173/login">退出</a>
           </li>
         </ul>
@@ -32,6 +34,7 @@ import { useRouter } from "vue-router";
 
 const username = ref("");
 const userInfoStore = useUserInfoStore();
+username.value = userInfoStore.info.username;
 const router = useRouter();
 const logOut = () => {
   // 清除userinfo
@@ -43,7 +46,6 @@ const logOut = () => {
   // 跳转到登录页面
   router.push("/login");
 };
-
 </script>
 
 <style scoped>
