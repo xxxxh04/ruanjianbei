@@ -39,12 +39,10 @@
       <nav class="navbar">
         <ul>
           <li v-if="username">
-            <a href="http://localhost:5173/home"
-              ><span>用户： {{ username }}</span></a
-            >
+            <router-link to="/home">{{ username }}</router-link>
           </li>
           <li v-if="username" @click="logOut">
-            <a href="http://localhost:5173/login">退出</a>
+            <router-link to="/login">退出</router-link>
           </li>
           <li v-else>
             <el-button type="primary" @click="goToAbout" class="loginButton"
