@@ -36,7 +36,10 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { useUserInfoStore } from "@/stores/user.js";
+import { useRouter } from "vue-router";
 import LineChart from "./LineChart.vue";
+
+const router = useRouter();
 
 let user = ref({
   id: "",
@@ -54,10 +57,10 @@ let user = ref({
   cname: "",
 });
 const navigateToModif = () => {
-  window.location.href = "http://localhost:5173/modif";
+  router.push("/modif");
 };
 const navigateToAdd = () => {
-  window.location.href = "http://localhost:5173/addclass";
+  router.push("/addclass");
 };
 
 onMounted(() => {
